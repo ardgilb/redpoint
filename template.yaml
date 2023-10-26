@@ -1,7 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  Redpoint
+Description: Redpoint
 
 Parameters:
 
@@ -57,7 +56,7 @@ Resources:
             Priority: 1
       UsernameAttributes:
         - email
-      UsernameConfiguration: 
+      UsernameConfiguration:
         CaseSensitive: false
       AutoVerifiedAttributes:
         - email
@@ -80,15 +79,15 @@ Resources:
       CallbackURLs:
         - http://localhost:8000
         - !If
-            - DeployCloudFront
-            - !Sub "https://${CloudfrontDistribution.DomainName}"
-            - !Ref "AWS::NoValue"
+          - DeployCloudFront
+          - !Sub "https://${CloudfrontDistribution.DomainName}"
+          - !Ref "AWS::NoValue"
       LogoutURLs:
         - http://localhost:8000
         - !If
-            - DeployCloudFront
-            - !Sub "https://${CloudfrontDistribution.DomainName}"
-            - !Ref "AWS::NoValue"
+          - DeployCloudFront
+          - !Sub "https://${CloudfrontDistribution.DomainName}"
+          - !Ref "AWS::NoValue"
       AllowedOAuthFlows:
         - code
         - implicit
@@ -149,7 +148,7 @@ Resources:
           ForwardedValues:
             QueryString: false
           TargetOriginId: s3-website
-          ViewerProtocolPolicy : redirect-to-https
+          ViewerProtocolPolicy: redirect-to-https
           CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
 
   S3BucketPolicy:
@@ -160,8 +159,7 @@ Resources:
       PolicyDocument:
         # Restricting access to cloudfront only.
         Statement:
-          -
-            Effect: Allow
+          - Effect: Allow
             Action: 's3:GetObject'
             Resource:
               - !Sub "arn:aws:s3:::${S3Bucket}/*"
@@ -180,8 +178,8 @@ Resources:
         - 'arn:aws:iam::aws:policy/service-role/AWSLambdaRole'
         - 'arn:aws:iam::aws:policy/AWSLambdaExecute'
       AssumeRolePolicyDocument:
-        Version: "2012-10-17" 
-        Statement: 
+        Version: "2012-10-17"
+        Statement:
           - Effect: Allow
             Principal:
               Service:
@@ -193,28 +191,28 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-            - Effect: Allow
-              Action:
-                - logs:CreateLogGroup
-                - logs:CreateLogStream
-                - logs:PutLogEvents
-                - cloudwatch:PutMetricData
-              Resource: '*'
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - cloudwatch:PutMetricData
+                Resource: '*'
         - PolicyName: 'AccessAreasTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-            - Effect: Allow
-              Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/areas"
-                
+              - Effect: Allow
+                Action: dynamodb:*
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/areas"
+
         - PolicyName: 'AccessCragsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-            - Effect: Allow
-              Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/crags"
+              - Effect: Allow
+                Action: dynamodb:*
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/crags"
         - PolicyName: 'AccessClimbsTable'
           PolicyDocument:
             Version: '2012-10-17'
@@ -241,165 +239,165 @@ Resources:
   # Lambda Functions Configuration
   #-----------------------------------------------------
 
-#  GetGroupLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.GetGroupLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MusicPlaylistService:
-#          Type: Api
-#          Properties:
-#            Path: /groups/{name}
-#            Method: get
-#
-#  GetContactLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.GetContactLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MusicPlaylistService:
-#          Type: Api
-#          Properties:
-#            Path: /contacts/{contactId}
-#            Method: get
-#
-#  GetContactsInGroupLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.GetContactsInGroupLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MusicPlaylistService:
-#          Type: Api
-#          Properties:
-#            Path: /groups/{name}/contacts
-#            Method: get
-#
-#  GetAllContactsLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllContactsLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MusicPlaylistService:
-#          Type: Api
-#          Properties:
-#            Path: /contacts
-#            Method: get
-#
-#  CreateGroupLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.CreateGroupLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MusicPlaylistService:
-#          Type: Api
-#          Properties:
-#            Path: /groups
-#            Method: post
-#
-#  CreateContactLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.CreateContactLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MusicPlaylistService:
-#          Type: Api
-#          Properties:
-#            Path: /contacts
-#            Method: post
-#
-#  GetAllGroupsLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllGroupsLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MusicPlaylistService:
-#          Type: Api
-#          Properties:
-#            Path: /groups
-#            Method: get
-#
-#  AddContactToGroupLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: MySocialNetworkLambda
-#      Handler: com.nashss.se.mysocialnetwork.lambda.AddContactToGroupLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        MySocialNetwork:
-#          Type: Api
-#          Properties:
-#            Path: /groups/{name}/contacts
-#            Method: post
+  GetAllAreasLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: RedpointLambda
+      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllAreasLambda::handleRequest
+      Runtime: java11
+      Architectures:
+          - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        Redpoint:
+          Type: Api
+          Properties:
+            Path: /areas
+            Method: get
+
+  #  GetContactLambda:
+  #    Type: AWS::Serverless::Function
+  #    Properties:
+  #      Role: !GetAtt AccessRole.Arn
+  #      CodeUri: MySocialNetworkLambda
+  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetContactLambda::handleRequest
+  #      Runtime: java11
+  #      Architectures:
+  #        - x86_64
+  #      MemorySize: 512
+  #      Environment:
+  #        Variables:
+  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+  #      Events:
+  #        MusicPlaylistService:
+  #          Type: Api
+  #          Properties:
+  #            Path: /contacts/{contactId}
+  #            Method: get
+  #
+  #  GetContactsInGroupLambda:
+  #    Type: AWS::Serverless::Function
+  #    Properties:
+  #      Role: !GetAtt AccessRole.Arn
+  #      CodeUri: MySocialNetworkLambda
+  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetContactsInGroupLambda::handleRequest
+  #      Runtime: java11
+  #      Architectures:
+  #        - x86_64
+  #      MemorySize: 512
+  #      Environment:
+  #        Variables:
+  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+  #      Events:
+  #        MusicPlaylistService:
+  #          Type: Api
+  #          Properties:
+  #            Path: /groups/{name}/contacts
+  #            Method: get
+  #
+  #  GetAllContactsLambda:
+  #    Type: AWS::Serverless::Function
+  #    Properties:
+  #      Role: !GetAtt AccessRole.Arn
+  #      CodeUri: MySocialNetworkLambda
+  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllContactsLambda::handleRequest
+  #      Runtime: java11
+  #      Architectures:
+  #        - x86_64
+  #      MemorySize: 512
+  #      Environment:
+  #        Variables:
+  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+  #      Events:
+  #        MusicPlaylistService:
+  #          Type: Api
+  #          Properties:
+  #            Path: /contacts
+  #            Method: get
+  #
+  #  CreateGroupLambda:
+  #    Type: AWS::Serverless::Function
+  #    Properties:
+  #      Role: !GetAtt AccessRole.Arn
+  #      CodeUri: MySocialNetworkLambda
+  #      Handler: com.nashss.se.mysocialnetwork.lambda.CreateGroupLambda::handleRequest
+  #      Runtime: java11
+  #      Architectures:
+  #        - x86_64
+  #      MemorySize: 512
+  #      Environment:
+  #        Variables:
+  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+  #      Events:
+  #        MusicPlaylistService:
+  #          Type: Api
+  #          Properties:
+  #            Path: /groups
+  #            Method: post
+  #
+  #  CreateContactLambda:
+  #    Type: AWS::Serverless::Function
+  #    Properties:
+  #      Role: !GetAtt AccessRole.Arn
+  #      CodeUri: MySocialNetworkLambda
+  #      Handler: com.nashss.se.mysocialnetwork.lambda.CreateContactLambda::handleRequest
+  #      Runtime: java11
+  #      Architectures:
+  #        - x86_64
+  #      MemorySize: 512
+  #      Environment:
+  #        Variables:
+  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+  #      Events:
+  #        MusicPlaylistService:
+  #          Type: Api
+  #          Properties:
+  #            Path: /contacts
+  #            Method: post
+  #
+  #  GetAllGroupsLambda:
+  #    Type: AWS::Serverless::Function
+  #    Properties:
+  #      Role: !GetAtt AccessRole.Arn
+  #      CodeUri: MySocialNetworkLambda
+  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllGroupsLambda::handleRequest
+  #      Runtime: java11
+  #      Architectures:
+  #        - x86_64
+  #      MemorySize: 512
+  #      Environment:
+  #        Variables:
+  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+  #      Events:
+  #        MusicPlaylistService:
+  #          Type: Api
+  #          Properties:
+  #            Path: /groups
+  #            Method: get
+  #
+  #  AddContactToGroupLambda:
+  #    Type: AWS::Serverless::Function
+  #    Properties:
+  #      Role: !GetAtt AccessRole.Arn
+  #      CodeUri: MySocialNetworkLambda
+  #      Handler: com.nashss.se.mysocialnetwork.lambda.AddContactToGroupLambda::handleRequest
+  #      Runtime: java11
+  #      Architectures:
+  #        - x86_64
+  #      MemorySize: 512
+  #      Environment:
+  #        Variables:
+  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+  #      Events:
+  #        MySocialNetwork:
+  #          Type: Api
+  #          Properties:
+  #            Path: /groups/{name}/contacts
+  #            Method: post
 
   #-----------------------------------------------------
   # DynamoDB Configuration
@@ -411,12 +409,6 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "areaId"
           AttributeType: "S"
-        - AttributeName: "coordinates"
-          AttributeType: "NS"
-        - AttributeName: "directions"
-          AttributeType: "S"
-        - AttributeName: "crags"
-          AttributeType:  "SS"
       KeySchema:
         - AttributeName: "areaId"
           KeyType: "HASH"
@@ -431,10 +423,6 @@ Resources:
           AttributeType: "S"
         - AttributeName: "cragId"
           AttributeType: "S"
-        - AttributeName: "directions"
-          AttributeType: "S"
-        - AttributeName: "climbs"
-          AttributeType: "SS"
       KeySchema:
         - AttributeName: "areaId"
           KeyType: "HASH"
@@ -451,18 +439,6 @@ Resources:
           AttributeType: "S"
         - AttributeName: "climbId"
           AttributeType: "S"
-        - AttributeName: "stars"
-          AttributeType: "N"
-        - AttributeName: "description"
-          AttributeType: "S"
-        - AttributeName: "difficulty"
-          AttributeType: "S"
-        - AttributeName: "style"
-          AttributeType: "S"
-        - AttributeName: "protection"
-          AttributeType: "S"
-        - AttributeName: "comments"
-          AttributeType: "SS"
       KeySchema:
         - AttributeName: "cragId"
           KeyType: "HASH"
@@ -488,10 +464,6 @@ Resources:
           AttributeType: "S"
         - AttributeName: "climbId"
           AttributeType: "S"
-        - AttributeName: "text"
-          AttributeType: "S"
-        - AttributeName: "stars"
-          AttributeType: "N"
       KeySchema:
         - AttributeName: "userId"
           KeyType: "HASH"
@@ -506,6 +478,7 @@ Resources:
               KeyType: "HASH"
           Projection:
             ProjectionType: "ALL"
+            
 #-----------------------------------------------------
 # The outputs defined below will be printed
 #  to the screen after a successful deploy

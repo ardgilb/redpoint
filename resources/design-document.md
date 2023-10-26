@@ -71,6 +71,7 @@ The front end will provide intuitive ways to interact with all of these features
 
 ```
 String areaId;
+String name;
 double[] location;
 String description;
 String directions;
@@ -83,6 +84,7 @@ List<String> crags;
 ```
 String areaId;
 String cragId;
+String name;
 String directions;
 String description; 
 List<String> climbs;
@@ -93,6 +95,7 @@ List<String> climbs;
 ```
 String cragId;
 String climbId;
+String name;
 Double stars;
 String location;
 String Description;
@@ -198,6 +201,7 @@ the `playlists` table in the Unit 3 project._
 
 ```
 @DynamoDBHashKey String areaId;
+String name;
 Number Set coordinates
 String description;
 String directions;
@@ -209,7 +213,8 @@ String Set crags;
 
 ```
 @DynamoDBHashKey String areaId;
-@DynamoDBRangeKey String cragId
+@DynamoDBRangeKey String cragId;
+String name;
 String directions;
 String description; 
 String Set climbs;
@@ -220,6 +225,7 @@ String Set climbs;
 ```
 @DynamoDBHashKey String cragId;
 @DynamoDBRangeKey String climbId;
+String name;
 Double stars;
 String location;
 String Description;
