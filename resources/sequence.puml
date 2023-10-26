@@ -1,0 +1,60 @@
+@startuml
+
+actor "Client" as client
+participant "UpdateToDoListActivity" as utl
+participant "UserDao" as userDao
+participant "ClimbDao" as climbDao
+participant "MetricsPublisher" as metricsPublisher
+database "DynamoDB" as dynamoDB
+
+title "UpdateToDoListActivity"
+
+client -> utl : call handleRequest()
+activate utl
+
+utl -> userDao : getUser(userId)
+activate userDao
+
+userDao -> dynamoDB : lookup by user id
+activate dynamoDB
+
+alt if user does not exist
+dynamoDB --> userDao : return with no item data
+userDao --> metricsPublisher : addCount(userNotFound, 1) (OR SHOULD WE CREATE A NEW USER HERE??)
+userDao --> utl: throw UserNotFoundException
+else continue
+end
+userDao --> metricsPublisher : addCount(userNotFound, 0)
+dynamoDB --> userDao: return user data
+deactivate dynamoDB
+userDao --> utl : return User object
+
+climbDao -> dynamoDB : lookup by climb id
+activate dynamoDB
+
+alt if climb does not exist
+dynamoDB --> climbDao : return with no item data
+climbDao --> metricsPublisher : addCount(climbNotFound, 1)
+climbDao --> utl: throw ClimbNotFoundException
+else continue
+end
+climbDao --> metricsPublisher : addCount(climbNotFound, 0)
+dynamoDB --> climbDao: return user data
+deactivate dynamoDB
+
+climbDao --> utl : return Climb object
+
+utl --> utl : add climb to user's to-do list
+
+utl -> userDao : saveUser(user)
+
+userDao -> dynamoDB : save the user
+activate dynamoDB
+dynamoDB -> userDao : return the saved user
+deactivate dynamoDB
+userDao -> utl : return User object
+deactivate userDao
+
+utl --> client : return UpdateToDoListResult built w object
+
+@enduml
