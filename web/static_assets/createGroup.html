@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="assets/createGroup.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+
+<body class="background">
+<header class="header" id="header"></header>
+<div class="card">
+    <h2>Create Group</h2>
+    <form class="card-content" id="create-group-form">
+        <p class="hidden error" id="error-message"> </p>
+        <p class="form-field">
+            <label>Group Name</label>
+            <input type="text" required class="validated-field" id="group-name" placeholder="friends, enemies, gardening club, etc."
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Tags</label>
+            <input type="text" id="tags" class="tags" placeholder="tag1,tag2"
+                   data-tip="Must be a comma separated list of tags">
+        </p>
+        <p>
+            <a href="#" class="button" id="create">Create Group</a>
+        </p>
+    </form>
+</div>
+</body>
+
+</html>

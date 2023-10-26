@@ -1,0 +1,154 @@
+:root {
+
+    --primary-color: #1a1a1a;
+    --secondary-color: #ffffff;
+    --tertiary-color: #f73333;
+    --accent-color: #007bff;
+    --font-family: 'Special Elite', monospace;
+}
+
+.background {
+    background-color: #000;
+    margin: 0;
+    counter-reset: section;
+    font-family: var(--font-family);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--tertiary-color);
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.button {
+    background-color: var(--accent-color);
+    border: none;
+    color: var(--secondary-color);
+    padding: 10px 16px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    margin: 20px;
+    padding: 16px 20px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+    color: var(--tertiary-color);
+    background-color: #1f1f1f;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.validated-field:invalid {
+    outline: 2px solid var(--tertiary-color);
+}
+
+.validated-field:focus:invalid {
+    color: var(--tertiary-color);
+}
+
+.card-content {
+    max-width: 500px;
+}
+
+.card-content .form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+}
+
+.tag {
+    font-size: 14px;
+    margin: 0 10px;
+    padding: 6px 12px;
+    background-color: #292929;
+    color: var(--tertiary-color);
+    position: relative;
+    border-radius: 16px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.contact {
+    padding: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.contact .title {
+    flex: 20%;
+    font-weight: bold;
+}
+
+.contact {
+    flex: 80%;
+}
+
+.contact:before {
+    counter-increment: section;
+    content: counter(section) ".";
+    position: absolute;
+    margin-left: -30px;
+    font-weight: bold;
+    color: var(--tertiary-color);
+}
+
+.hidden {
+    display: none;
+}
+
+.blue-text {
+    color: var(--accent-color);
+}
+
+.list-title {
+    color: var(--tertiary-color);
+}
+
+.large-text {
+    font-size: 48px;
+    font-family: 'Black Ops One', cursive;
+
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    border-bottom: 2px solid var(--accent-color);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #0056b3; 
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="assets/viewGroup.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+
+<body class="background">
+<header class="header" id="header"></header>
+<div class="card">
+    <h2>Group Details</h2>
+    <h2 id="group-name"></h2>
+    <div class="tags" id="group-tags"></div>
+    <ol id="contact-list"></ol>
+</div>
+<div class="card">
+    <h2>Add Contact to Group</h2>
+    <form class="card-content" id="add-contact-form">
+        <p class="hidden error" id="error-message"></p>
+        <p class="form-field">
+            <label for="contact-dropdown">Select a Contact</label>
+            <select id="contact-dropdown" required></select>
+        </p>
+        <a href="#" class="button" id="add-contact">Add Contact</a>
+    </form>
+</div>
+</body>
+
+</html>
