@@ -61,6 +61,8 @@ delete, and update comments.
 
 The front end will provide intuitive ways to interact with all of these features.
 
+[Class Diagram is here](Redpoint.puml)
+
 # 6. API
 
 ## 6.1. Public Models
