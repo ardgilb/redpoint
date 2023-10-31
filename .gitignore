@@ -20,6 +20,7 @@
 build
 logs
 node_modules
+.idea
 
 .env*
 bin

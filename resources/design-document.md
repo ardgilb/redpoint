@@ -226,11 +226,11 @@ String Set climbs;
 @DynamoDBHashKey String cragId;
 @DynamoDBRangeKey String climbId;
 String name;
-Double stars;
+Number stars;
+Number numRatings;
 String location;
 String Description;
-Rating rating;
-Style style;
+String rating;
 String protection;
 String Set comments;
 

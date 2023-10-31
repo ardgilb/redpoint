@@ -9,3 +9,5 @@
 
 rootProject.name = 'capstone-redpoint'
 include('RedpointLambda')
+include 'data'
+

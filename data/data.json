@@ -1,0 +1,154 @@
+{
+  "climbs": [
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00033" },
+          "name": { "S": "Competitive Edge" },
+          "rating": { "S": "5.10a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "In the middle of Quiet Zone, climber's right of the tree. Name plate as of April 2015." },
+          "description": { "S": "Starts on a small boulder. High first bolt, consider stick clipping. Easy climbing to first bolt. Hardest part was around 2nd and 3rd anchors. After that follow the bolts for thin handholds and solid feet to the chains." },
+          "protection": { "S": "6 bolts, chains at top." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00034" },
+          "name": { "S": "Murphy's Law" },
+          "rating": { "S": "5.11a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Mixed climbing. Through a white dihedral" },
+          "protection": { "S": "3 bolts, chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00035" },
+          "name": { "S": "Too Good to Be True" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Goes over a obvious 3-foot overhang" },
+          "description": { "S": "3 bolts to chain anchors" },
+          "protection": { "S": "3 bolts to chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00036" },
+          "name": { "S": "Tight Squeeze" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Between 'Too Good to Be True' and 'Brickyard'. Has a name plate." },
+          "description": { "S": "Fun technical climbing up a shallow corner to a small roof. Easy after the roof." },
+          "protection": { "S": "4 bolts" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00037" },
+          "name": { "S": "Name in the Guidebook" },
+          "rating": { "S": "5.11a/b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Really good route that starts left of Stone Dagger on some tufa features that soon end to a crux with thin crimps and some harder moves to the roof. Pull the roof and enjoy jugs to the anchor." },
+          "protection": { "S": "5 bolts to chain anchors. Consider stick clipping the first bolt." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00038" },
+          "name": { "S": "Stone Dagger" },
+          "rating": { "S": "5.9+" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "It starts at a basketball-sized hole at your knees. Undercling a smaller hole above your head and step up to start." },
+          "description": { "S": "The Dixie Cragger's Atlas calls this a \"mixed\" route. I guess for King's Bluff it is a little run out... maybe ten or twelve feet if I remember correctly. It's long for King's - a fun climb." },
+          "protection": { "S": "You don't need any gear. It's got 5 bolts. There aren't any \"no-fall\" zones." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00039" },
+          "name": { "S": "Shitbox" },
+          "rating": { "S": "5.10a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Right of Stone Dagger" },
+          "description": { "S": "This route may clean up, eventually... but for now, don't expect great rock quality. Hell, Todd cleaned so much rock off the upper half on his ascent, I'm not even sure there's any rock at all left up there! It's probably a new route now and needs to be renamed and regraded. Anyway, if you do decide to do this death trap, I mean future classic, be careful what you pull on. And for Pete's sake, please wear a helmet (especially while belaying), and don't let anyone hang out under it while you're climbing!!! Ok, disclaimer aside, the roof pull on this thing is actually fun! And it is tall for the area. If nothing else, get on it for the experience! Maybe we'll make \"I survived Shitbox\" stickers someday..." },
+          "protection": { "S": "5 bolts + anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00040" },
+          "name": { "S": "Chimney Sweep" },
+          "rating": { "S": "5.5" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Route stays right of blocky corner" },
+          "protection": { "S": "3 bolts, cable anchors in trees" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00041" },
+          "name": { "S": "Old Fart" },
+          "rating": { "S": "5.8" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "nearly straight up 40 feet" },
+          "protection": { "S": "4 bolts to chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00042" },
+          "name": { "S": "Nine to Five" },
+          "rating": { "S": "5.9" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Climbs slightly left 40 ft" },
+          "protection": { "S": "3 bolts to eye-bolt anchors" }
+        }
+      }
+    }
+  ]
+}
