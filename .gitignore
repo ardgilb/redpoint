@@ -4,7 +4,7 @@
 /.settings
 /.project
 /eclipse-bin/
-../u5-midstone-strawberry/.idea
+.idea/
 /annotation-generated-src
 /annotation-generated-tst
 /SAMToolkit.devenv

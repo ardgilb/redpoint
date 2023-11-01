@@ -1,0 +1,691 @@
+{
+  "areas": [
+    {
+      "PutRequest": {
+        "Item": {
+          "areaId": { "S": "00001" },
+          "name": { "S": "Obed River" },
+          "coordinates": { "NS": ["36.116", "-84.7317"] },
+          "description": {"S":  "The confluence of Clear Creek and the Obed River is home to a series of beautiful sandstone cliff bands providing some of the best sport climbing in the Southeast. Just bring a rack of draws, a stick clip (high first bolts are commonplace in these parts), and guns (double entendre intended). The rock here is Cumberland Plateau sandstone, and the sedimentary layering of the rock tends to form huge horizontal roofs, jugs, and slopers. The rock is generally bullet hard and provides good friction. Climbing happens year-round: chase the shade or sun depending on the season."},
+          "crags": {"SS": ["00001", "00002", "00003"]}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "areaId": { "S": "00002" },
+          "name": { "S": "King's Bluff" },
+          "coordinates": { "NS": ["36.5015", "-87.3234"] },
+          "description": {"S":  "Nashville's closest climbing, King's Bluff is owned and managed by the Southeastern Climbers Coalition. Southern aspect guarantees sunny cragging year-round that is usually not crowded. Decent shade is provided by overgrowth in the summer. Direct sunshine in the winter. Limestone lines 5.4 to 5.13b with small edges, flexing flakes and sweet pockets. Mostly sport with a few trad and mixed routes. Approximately 150 climbs 35-70 feet tall. The top of the the cliff is off limits, so the only way to set up topropes is by first leading the route. No camping in the area. Consider making a donation to the SCC at the box located along the approach trail. There are plenty of places to buy adult beverages in Screaming Eagle country. Developed by Walter Wilkinson and Terry Parker in the early 1990's. Classics include Baby Kangaroo 5.8+, First Plum 5.10b, LAG 5.9 and Ritz Bitz 5.10c."},
+          "crags": {"SS": ["00004"]}
+        }
+      }
+    }
+  ],
+  "crags": [
+    {
+      "PutRequest": {
+        "Item": {
+          "areaId": { "S": "00001" },
+          "cragId": { "S": "00001" },
+          "name": { "S": "Stephen King Library" },
+          "directions": {"S":  "After leaving the Solstice Cave, continue along the trail. Its hard to miss the enormous, flat roof that marks the library!"},
+          "description": {"S":  "Here you will find several short, steep, and pumpy routes."},
+          "climbs": {"SS": ["00001", "00002", "00003", "00013", "00014", "00015", "00016", "00017", "00018", "00019", "00020"]}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "areaId": { "S": "00001" },
+          "cragId": { "S": "00002" },
+          "name": { "S": "Solstice Cave" },
+          "directions": {"S":  "After reaching the end of the Image Wall, hang a sharp left and traverse out onto a ledge. There is a wire hand line bolted to the rock. This takes you right into the cave."},
+          "description": {"S":  "This wall has several steep lines, including the popular Solstice."},
+          "climbs": {"SS": ["00004", "00005", "00006", "00007", "00008", "00009", "00010", "00011", "00012"]}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "areaId": { "S": "00002" },
+          "cragId": { "S": "00003" },
+          "name": { "S": "The Quiet Zone" },
+          "directions": {"S":  "Down the stairs and all the way to the right."},
+          "description": {"S":  "The harder routes here usually mean that this section of the wall lives up to its name.\n"},
+          "climbs": {"SS": ["00003", "00004"]}
+        }
+      }
+    }
+  ],
+  "climbs": [
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00001" },
+          "name": { "S": "It" },
+          "rating": { "S": "5.10a" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "Starts in a right-facing corner, pretty much in the middle of the wall beneath the Library roof."},
+          "description": {"S":  "Easy climbing gets you up to the corner and the first bolt. Climb the left face of the corner to anchors below the roof."},
+          "protection": {"S":  "3 bolts, anchors"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00002" },
+          "name": { "S": "Pet Sematary" },
+          "rating": { "S": "5.11a" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "To the right of \"IT\" and the route used to get to rage (the ceiling)."},
+          "description": {"S":  "Slopey all the way to the top! Bolts are placed fairly close together so its a nice 11 for someone that is just starting to climb 11s."},
+          "protection": {"S":  "5 bolts with chains at the top"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00003" },
+          "name": { "S": "Rage" },
+          "rating": { "S": "5.12c" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "This is the first route right of the corner in the Stephen King Library. The start of this route is Pet Semetary which is then taken out the roof."},
+          "description": {"S":  "Start just to the right of the corner that is the route It. Climb Pet Semetary to the roof, catch a shake, and make the transition from vertical to horizontal. Climb through the next seven bolts of roofy madness. (The first five bolts of the roof are considered 11c, so be ready for the business at the end.) If you can make it to the lip of the roof, catch a tricky heel hook rest and go for the chains."},
+          "protection": {"S":  "12 bolts to chain anchors"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00013" },
+          "name": { "S": "Maximum Overdrive" },
+          "rating": { "S": "5.13a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "The rightmost roof route in the Stephen King Library. Start just right of Pet Semetery." },
+          "description": { "S": "Roof climbing at its best! A 30-foot 12b on slightly overhanging slopers leads to 35 feet of completely horizontal roof climbing madness. Paw through scoops and slopes to reach a jug in the break just below the massive roof. Although the holds look pretty good from the ground, they all prove to be a bit harder to use than you expect, requiring creative moves and novel footwork to make things manageable. The first four bolts in the roof are the hardest, but the end does not let up. Save a little to clip the chains! In my opinion, this route felt a bit stiff for 13a, so be ready to kick into overdrive and get creative. Some of the rock is a little friable, so beware if you stray from the chalked-up holds. Also, most people skip the third draw in the roof." },
+          "protection": { "S": "Bolts and a two-bolt anchor. The roof bolts are fixed with quick-links, tied webbing, and a carabiner. Make sure you inspect these on your attempt. Also, some of the bolts look a little rusty, so beware." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00014" },
+          "name": { "S": "Maximum Face" },
+          "rating": { "S": "5.12b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Start of Maximum Overdrive to the break" },
+          "description": { "S": "Fantastic slopper moves that climbs the start of Maximum Overdrive. Worth doing if you're going for The Shining—this was more sustained and better movement too." },
+          "protection": { "S": "5 Bolts to anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00015" },
+          "name": { "S": "The Shining" },
+          "rating": { "S": "5.12b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Three routes right of It. Between Maximum Overdrive and Gunslinger." },
+          "description": { "S": "Tough face climbing that requires a bit more figuring out than the other routes on the wall. Like all the routes on this wall, slopers are king. However, it will take more than pulling down to get you up this one. Look for some underclings and some tricky sequences to get you to better holds at mid-height. Easier, but still demanding moves gain the chains." },
+          "protection": { "S": "Bolts and a two-bolt anchor. A 50-meter rope will easily get you down." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00016" },
+          "name": { "S": "Gunslinger" },
+          "rating": { "S": "5.11d" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Starts 30' right of It." },
+          "description": { "S": "Climb slopers up to a good rest near the end. Finishes on the corner below roof on rings." },
+          "protection": { "S": "Six bolts, bolted anchors. Stick clip makes the bottom a little safer." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00017" },
+          "name": { "S": "Salem's Lot" },
+          "rating": { "S": "5.11c" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "This route is the direct start to Christine (5.10a). It is located to the right of Thinner (5.7)." },
+          "description": { "S": "Climb onto the large block that starts Thinner, and traverse towards the right on textured but slightly sloping holds. Clip the crux bolt from a small hold, and move up then right, fire a fun deadpoint move to a massive jug to complete the crux sequence. Slide out of the cave to gain the slab and finish up Christine. I fully recommend this route for anyone climbing in the 5.11 range. It adds an incredible amount of value to Christine." },
+          "protection": { "S": "Bolts" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00018" },
+          "name": { "S": "Christine" },
+          "rating": { "S": "5.10a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Just right of the Library roof." },
+          "description": { "S": "Scramble up from the trail just right of the Library roof. Step left onto the face and clip your first bolt. The route trends up and left a bit, putting you above the right end of the roof. Balancy moves take you upward through a slabby face, then past another steep section to the anchors." },
+          "protection": { "S": "7 bolts, anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00019" },
+          "name": { "S": "Heavy Fuel" },
+          "rating": { "S": "5.11c" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Ten feet left of Brother in Arms." },
+          "description": { "S": "Moderate face climbing to a crimpy arete crux below the anchors. Pull on the face left of Brother in Arms, make some long moves between good holds to a no hands rest. Move slightly left, to more good holds below the steep blunt arete. Use slopers and crimps on both sides of the arete to reach better holds and the chains." },
+          "protection": { "S": "Bolts and a two-bolt anchor." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00001" },
+          "climbId": { "S": "00020" },
+          "name": { "S": "Brother in Arms" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Starts just right of Heavy Fuel. Heading toward the Balcony away from the library, it's the obvious six-bolt route just off the path." },
+          "description": { "S": "A short crank through the first two bolts brings you to a massive ledge, the third clip, and a great rest. Moving up and left from the ledge, you reach the thinnest section of the route. Trend left at the last bolt, or use your superior reach and lock-offs for a straight-up finish. This is a good addition to the other easy to moderates that are wildly popular at South Clear. A good tick if you've done Christine and Best Seat and are looking for a little more." },
+          "protection": { "S": "Six bolts to anchors." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00004" },
+          "name": { "S": "Solstice" },
+          "rating": { "S": "5.12a" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "Walk down to Spawn and Shadow hawk, continue around the corner to a ledge traverse with a cable. This will be the first route you encounter in the huge cave."},
+          "description": {"S":  "This route ascends the very steep roof in the Solstice cave and is the next route to the right (if you are facing the cliff) around the corner from Shadow Hawk. Climb the steep face to a crux move and then fire out the insanely steep roof to the anchors. Bolts 1 2 and 4 do not have fixed draws. This is is a pumpy climb with an absolutely amazing roof. When you first start into the roof you are actually climbing back down towards the ground! Fall off anywhere in the roof and you will have a heck of a time getting back on the route!"},
+          "protection": {"S":  "3 draws with extended runners."}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00005" },
+          "name": { "S": "Roughin' Up The Suspect" },
+          "rating": { "S": "5.13c" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "The route is just right of Solstice, about thirty feet right of the cable handrail as one hikes right from the Image Wall."},
+          "description": {"S":  "Roughin' Up the Suspects is an excellent, difficult route (one of the hardest at the Obed) with explosive and devious crux moves. \n\nStart on a pile of rocks and climb jugs to slopey and dynamic moves below the first roof. Clip a high bolt over the roof (long draw usually in place) and execute the boulder problem crux (V7/8) to the horizontal. Climb left along the horizontal (keep your feet on if you can), and swing through the finishing jugs to the anchor. Lower off 30 ft. out from the wall."},
+          "protection": {"S":  "6 bolts, usually with fixed draws. A stick clip might be nice to get to the first bolt."}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00006" },
+          "name": { "S": "Twilight" },
+          "rating": { "S": "5.13c" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "About 15 feet right of Roughin' Up the Suspects. Look for the clean face with chalked crimps and a fairly obvious fingerlock slot about thirty feet up."},
+          "description": {"S":  "If you like a direct line, perfect sandstone, and hard bouldering, you'll probably enjoy Twilight. Aside from one painful fingerlock, this route is some of the best rock the Obed has to offer.\n\nBegin with some steep, pumpy climbing through weird slopers and sidepulls to a boulder problem that revolves around a pretty painful fingerlock. Dynamic moves on bad holds will get you through the next roof. Keep pulling all the way to the lip of the final roof (watch out for a loose block in the back of it) near the top of the wall.\n\nIt might be worth taping a few fingers for this one; the fingerlock really does bite."},
+          "protection": {"S":  "7 bolts to a chain anchor. Some of the draws should be longer for rope drag and hard clips. The holds getting to the first bolt are a bit crumbly; a stick clip is nice."}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00007" },
+          "name": { "S": "A.D.D" },
+          "rating": { "S": "5.13a" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "description": {"S":  "Start back in the cave and work up and to the right."},
+          "protection": {"S":  "5 bolts to chain anchors"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00008" },
+          "name": { "S": "Frost Man" },
+          "rating": { "S": "5.12c" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "description": {"S":  "Follow the face to the right side of the cave. Move to the right and move around the layered roof."},
+          "protection": {"S":  "8 bolts to single cold shut anchor"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00009" },
+          "name": { "S": "Super Ego" },
+          "rating": { "S": "5.9" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "this route is on the path after the solstice cave in a little alcove that houses three routes. it's obvious that a naturally protected route follows the obvious weakness on the left wall, while the two bolted routes are on the right wall. Ego is the middle of the three."},
+          "description": {"S":  "a fairly easy route with no real tough spots. the crux is likely clipping the second bolt without taking a ground fall. there is a short left facing corner mid way up that could prove tricky, but is great if you ignore the gigantic triangular over chalked hold, and get your feet up. above that the route wanders for another clip or two over to some shared anchors. watch yourself as a fall from this easy terrain could be painful."},
+          "protection": {"S":  "bolts to shared anchors."}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00010" },
+          "name": { "S": "Flight of the Ego" },
+          "rating": { "S": "5.11b" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "After passing Solstice Cave, in a small alcove with the trad route, “Inner Child” 5.9, starting in the left corner. “Flight of the Ego” 5.11b is on the far right side of the alcove and shares anchors with the other sport route to its left, “Super Ego” 5.9."},
+          "description": {"S":  "Bouldery start with difficult feet. Make the crimp rail up to the right then pull the next move and you are pretty much done with the crux."},
+          "protection": {"S":  "5 bolts, shares anchors with Super Ego"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00011" },
+          "name": { "S": "Soho the Happy Dog" },
+          "rating": { "S": "5.12c" },
+          "stars": {"N" :  "0"},
+          "numRatings" : {"N" :  "0"},
+          "location": {"S":  "Not actually in the Solstice cave but just off to the right out of view. All by itself climbing a double set of tiered roofs on clean white rock."},
+          "description": {"S":  "Soho is an excellent bouldery route. This route climbs 2 boulder problems (a v2 to a v4/5) split by a good rest should you choose to take it. Reachy and powerful this route climbs flawless clean white sandstone as fine as any."},
+          "protection": {"S":  "7 or 8 bolts. A double or triple long on the first bolt is a good idea for rope drag, then long on the next two bolts. This really helps for drag up top."}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00002" },
+          "climbId": { "S": "00012" },
+          "name": { "S": "Pump" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "This route is on the same ledge as 'Dude climbs like a lady,' just to its right. This ledge is often overlooked, and as such, this route doesn't see much traffic. However, if the crag is crowded, or if you're looking for just one more 5.10 to tick before the end of the day, this one is pretty okay." },
+          "description": { "S": "This route is on the same ledge as 'Dude climbs like a lady,' just to its right. This ledge is often overlooked, and as such, this route doesn't see much traffic. However, if the crag is crowded, or if you're looking for just one more 5.10 to tick before the end of the day, this one is pretty okay." },
+          "protection": { "S": "5 bolts, anchor" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00021" },
+          "name": { "S": "Under the Eye of the Vulture" },
+          "rating": { "S": "5.11c" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "The last route in the Quiet Zone. At the far west end of permissibly accessed land." },
+          "description": { "S": "A sequential, bouldery start leads to a rest. Fun and interesting moves through the middle, to a puzzling bulge below the anchors. Originally a mixed route with two less bolts." },
+          "protection": { "S": "5 Bolts, Ring Anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00022" },
+          "name": { "S": "White Line Fever" },
+          "rating": { "S": "5.11c" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Climb the left side of a white streak to crescent-shaped layback. Keep moving to just below a bulge. Muscle the bulge to ring anchors." },
+          "protection": { "S": "5 bolts, Ring anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00023" },
+          "name": { "S": "Forged Identity" },
+          "rating": { "S": "5.12b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "description": { "S": "3rd route on the right" },
+          "protection": { "S": "5 bolts to anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00024" },
+          "name": { "S": "Elevator Shoes" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Thanks to the name plates, it couldn't be easier to find! Fourth route on the entire bluff. Walk down the stairs, turn right, and walk till you don't see bolted routes anymore, and that will be the Quiet Zone." },
+          "description": { "S": "Fun King's Bluff route. The first clip is a little runout (consider a stick clip, but definitely not necessary)." },
+          "protection": { "S": "No pro needed. Three bolts to chain anchors." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00025" },
+          "name": { "S": "Easy for Now" },
+          "rating": { "S": "5.9" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "description": { "S": "Follows a shallow dihedral" },
+          "protection": { "S": "3 bolts to chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00026" },
+          "name": { "S": "[Redacted]" },
+          "rating": { "S": "5.9+" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Right of Easy For Now, left of Da Bulge." },
+          "description": { "S": "This route confronts you with puzzle after puzzle. Don't be surprised by a few try-really-hard-for-the-grade moves, as you can find just enough rest between each to keep it together. Rock quality is much better than it looks from the ground. Stick clip recommended if not solid at the grade here!" },
+          "protection": { "S": "4 bolts + anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00027" },
+          "name": { "S": "Da Bulge" },
+          "rating": { "S": "5.9" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Right of [Redacted]. Left of Snoopin'." },
+          "description": { "S": "Boulder through a stiff start, up a blocky bulge, to a mantle move at a ledge. From there, find the cryptic crimps that will get you to the chains. Sandstone-esque rock sections and movement." },
+          "protection": { "S": "4 bolts + anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00028" },
+          "name": { "S": "Snoop'n and Poop'n" },
+          "rating": { "S": "5.8-" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "description": { "S": "Wide, shallow dihedral right of rotten flake" },
+          "protection": { "S": "chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00029" },
+          "name": { "S": "Hot Shit" },
+          "rating": { "S": "5.11-" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Left of A Break From The Heat" },
+          "description": { "S": "Mellow climbing to first bolt. Then, an interesting harder section, which eases up before a reachy anchor clip. Beware of hollow rock above anchor!" },
+          "protection": { "S": "5 bolts + anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00030" },
+          "name": { "S": "A Break from the Heat" },
+          "rating": { "S": "5.9" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Look for the plaque. Route is near the end of the Quiet Zone before you enter the Forbidden Zone." },
+          "description": { "S": "Start with some moderate crimps, aiming for the obvious crack. Jam the crack and follow it up. Continue up until, holds are good the entire way. Route gets a little run out in between the 3rd and 4th hold, but it's fairly easy climbing so nothing to worry about. The Dixie Cragger's Atlas still has this listed as a mixed route, however it looks like someone added two more bolts and it is now one of the best moderate sport climbs at King's Bluff." },
+          "protection": { "S": "5 bolts, chain anchors." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00031" },
+          "name": { "S": "Thin and Crispy" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Starts in front of oak tree." },
+          "description": { "S": "Starts in front of oak tree." },
+          "protection": { "S": "5 bolts to chain anchors. First bolt is angle head" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00032" },
+          "name": { "S": "Integrity" },
+          "rating": { "S": "5.10c" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Starts 5 feet left of two stacked boulders" },
+          "description": { "S": "Starts 5 feet left of two stacked boulders" },
+          "protection": { "S": "5 bolts to chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00033" },
+          "name": { "S": "Competitive Edge" },
+          "rating": { "S": "5.10a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "In the middle of Quiet Zone, climber's right of the tree. Name plate as of April 2015." },
+          "description": { "S": "Starts on a small boulder. High first bolt, consider stick clipping. Easy climbing to first bolt. Hardest part was around 2nd and 3rd anchors. After that follow the bolts for thin handholds and solid feet to the chains." },
+          "protection": { "S": "6 bolts, chains at top." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00034" },
+          "name": { "S": "Murphy's Law" },
+          "rating": { "S": "5.11a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Mixed climbing. Through a white dihedral" },
+          "protection": { "S": "3 bolts, chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00035" },
+          "name": { "S": "Too Good to Be True" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Goes over a obvious 3-foot overhang" },
+          "description": { "S": "3 bolts to chain anchors" },
+          "protection": { "S": "3 bolts to chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00036" },
+          "name": { "S": "Tight Squeeze" },
+          "rating": { "S": "5.10b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Between 'Too Good to Be True' and 'Brickyard'. Has a name plate." },
+          "description": { "S": "Fun technical climbing up a shallow corner to a small roof. Easy after the roof." },
+          "protection": { "S": "4 bolts" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00037" },
+          "name": { "S": "Name in the Guidebook" },
+          "rating": { "S": "5.11a/b" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Really good route that starts left of Stone Dagger on some tufa features that soon end to a crux with thin crimps and some harder moves to the roof. Pull the roof and enjoy jugs to the anchor." },
+          "protection": { "S": "5 bolts to chain anchors. Consider stick clipping the first bolt." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00038" },
+          "name": { "S": "Stone Dagger" },
+          "rating": { "S": "5.9+" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "It starts at a basketball-sized hole at your knees. Undercling a smaller hole above your head and step up to start." },
+          "description": { "S": "The Dixie Cragger's Atlas calls this a \"mixed\" route. I guess for King's Bluff it is a little run out... maybe ten or twelve feet if I remember correctly. It's long for King's - a fun climb." },
+          "protection": { "S": "You don't need any gear. It's got 5 bolts. There aren't any \"no-fall\" zones." }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00039" },
+          "name": { "S": "Shitbox" },
+          "rating": { "S": "5.10a" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "Right of Stone Dagger" },
+          "description": { "S": "This route may clean up, eventually... but for now, don't expect great rock quality. Hell, Todd cleaned so much rock off the upper half on his ascent, I'm not even sure there's any rock at all left up there! It's probably a new route now and needs to be renamed and regraded. Anyway, if you do decide to do this death trap, I mean future classic, be careful what you pull on. And for Pete's sake, please wear a helmet (especially while belaying), and don't let anyone hang out under it while you're climbing!!! Ok, disclaimer aside, the roof pull on this thing is actually fun! And it is tall for the area. If nothing else, get on it for the experience! Maybe we'll make \"I survived Shitbox\" stickers someday..." },
+          "protection": { "S": "5 bolts + anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00040" },
+          "name": { "S": "Chimney Sweep" },
+          "rating": { "S": "5.5" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Route stays right of blocky corner" },
+          "protection": { "S": "3 bolts, cable anchors in trees" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00041" },
+          "name": { "S": "Old Fart" },
+          "rating": { "S": "5.8" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "nearly straight up 40 feet" },
+          "protection": { "S": "4 bolts to chain anchors" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cragId": { "S": "00003" },
+          "climbId": { "S": "00042" },
+          "name": { "S": "Nine to Five" },
+          "rating": { "S": "5.9" },
+          "stars": { "N": "0" },
+          "numRatings": { "N": "0" },
+          "location": { "S": "" },
+          "description": { "S": "Climbs slightly left 40 ft" },
+          "protection": { "S": "3 bolts to eye-bolt anchors" }
+        }
+      }
+    }
+  ]
+}
