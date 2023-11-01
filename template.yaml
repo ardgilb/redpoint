@@ -244,7 +244,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: RedpointLambda
-      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllAreasLambda::handleRequest
+      Handler: com.nashss.se.redpoint.lambda.GetAllAreasLambda::handleRequest
       Runtime: java11
       Architectures:
           - x86_64
