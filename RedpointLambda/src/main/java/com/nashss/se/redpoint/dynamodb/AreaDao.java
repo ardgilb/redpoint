@@ -1,11 +1,13 @@
 package com.nashss.se.redpoint.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.nashss.se.redpoint.dynamodb.models.Area;
 
-import javax.inject.Singleton;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+
 import java.util.List;
+
+import javax.inject.Singleton;
 
 /**
  * Accesses data for an area using {@link Area} to represent the model in DynamoDB.

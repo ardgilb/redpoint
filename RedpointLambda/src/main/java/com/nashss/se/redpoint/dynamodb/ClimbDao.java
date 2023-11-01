@@ -1,14 +1,14 @@
 package com.nashss.se.redpoint.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.nashss.se.redpoint.dynamodb.models.Area;
 import com.nashss.se.redpoint.dynamodb.models.Climb;
 
-import javax.inject.Singleton;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+
 import java.util.List;
+
+import javax.inject.Singleton;
 
 /**
  * Accesses data for a climb using {@link Climb} to represent the model in DynamoDB.

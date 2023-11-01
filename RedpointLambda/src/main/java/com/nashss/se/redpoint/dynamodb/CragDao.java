@@ -1,13 +1,14 @@
 package com.nashss.se.redpoint.dynamodb;
 
+import com.nashss.se.redpoint.dynamodb.models.Crag;
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.nashss.se.redpoint.dynamodb.models.Climb;
-import com.nashss.se.redpoint.dynamodb.models.Crag;
+
+import java.util.List;
 
 import javax.inject.Singleton;
-import java.util.List;
 
 /**
  * Accesses data for a crag using {@link Crag} to represent the model in DynamoDB.
@@ -30,7 +31,7 @@ public class CragDao {
      * @param cragId the Crag's cragId
      * @return the stored Crag, or throws exception if none was found.
      */
-    public Climb getCrag(String cragId) {
+    public Crag getCrag(String cragId) {
         //get the crag using the gsi where we only take the cragId
         //if crag == null, throw new CragNotFoundException();
         //log appropriate metrics later

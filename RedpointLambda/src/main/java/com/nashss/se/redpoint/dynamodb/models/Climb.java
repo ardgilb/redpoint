@@ -1,6 +1,8 @@
 package com.nashss.se.redpoint.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 
 import java.util.Set;
 
@@ -90,6 +92,10 @@ public class Climb {
     public void setProtection(String protection) {
         this.protection = protection;
     }
+    /**
+     * Gets the comments for this Climb, or null if response is null.
+     * @return comments the comments associated with the climb, or null if no comments.
+     */
     @DynamoDBAttribute(attributeName = "comments")
     public Set<String> getComments() {
         if (comments == null) {
