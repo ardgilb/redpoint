@@ -1,4 +1,4 @@
-package com.nashss.se.redpoint.dynamodb;
+package com.nashss.se.redpoint.dataaccess;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Regions;

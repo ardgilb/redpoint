@@ -1,6 +1,6 @@
-package com.nashss.se.redpoint.dynamodb;
+package com.nashss.se.redpoint.dataaccess;
 
-import com.nashss.se.redpoint.dynamodb.models.Climb;
+import com.nashss.se.redpoint.dataaccess.models.Climb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;

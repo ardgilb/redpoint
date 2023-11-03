@@ -1,6 +1,6 @@
-package com.nashss.se.redpoint.dynamodb;
+package com.nashss.se.redpoint.dataaccess;
 
-import com.nashss.se.redpoint.dynamodb.models.Area;
+import com.nashss.se.redpoint.dataaccess.models.Area;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;

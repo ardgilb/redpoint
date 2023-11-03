@@ -1,8 +1,8 @@
-package com.nashss.se.redpoint.dynamodb;
+package com.nashss.se.redpoint.dataaccess;
 
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.nashss.se.redpoint.dynamodb.models.Area;
+import com.nashss.se.redpoint.dataaccess.models.Area;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

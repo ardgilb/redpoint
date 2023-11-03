@@ -1,4 +1,4 @@
-package com.nashss.se.redpoint.dynamodb.models;
+package com.nashss.se.redpoint.dataaccess.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,6 +1,6 @@
 package com.nashss.se.redpoint.dependency;
 
-import com.nashss.se.redpoint.dynamodb.DynamoDbClientProvider;
+import com.nashss.se.redpoint.dataaccess.DynamoDbClientProvider;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;

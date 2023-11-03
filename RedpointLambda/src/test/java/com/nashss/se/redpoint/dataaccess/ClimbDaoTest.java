@@ -1,14 +1,12 @@
-package com.nashss.se.redpoint.dynamodb;
+package com.nashss.se.redpoint.dataaccess;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.nashss.se.redpoint.dynamodb.models.Area;
-import com.nashss.se.redpoint.dynamodb.models.Climb;
+import com.nashss.se.redpoint.dataaccess.models.Climb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
-import java.util.List;
 
 public class ClimbDaoTest {
     HttpClient client = HttpClient.newHttpClient();
