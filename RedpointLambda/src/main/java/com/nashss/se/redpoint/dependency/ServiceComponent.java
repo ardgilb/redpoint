@@ -1,5 +1,7 @@
 package com.nashss.se.redpoint.dependency;
 
+import com.nashss.se.redpoint.activity.GetAllAreasActivity;
+
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -13,8 +15,9 @@ public interface ServiceComponent {
 
     /**
      * Provides the relevant activity.
-     * @return
+     * @return GetAllAreasActivity
      */
+    GetAllAreasActivity provideGetAllAreasActivity();
 
 }
 

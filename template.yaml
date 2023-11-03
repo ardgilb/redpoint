@@ -256,7 +256,7 @@ Resources:
         Redpoint:
           Type: Api
           Properties:
-            Path: /areas
+            Path: /areas/{query}
             Method: get
 
   #  GetContactLambda:

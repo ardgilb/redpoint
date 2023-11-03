@@ -12,20 +12,19 @@ import java.util.List;
 
 public class AreaDaoTest {
     HttpClient client = HttpClient.newHttpClient();
-    DynamoDBMapper mapper;
     AreaDao areaDao;
     @BeforeEach
     public void setup(){
-        areaDao = new AreaDao(mapper, client);
+        areaDao = new AreaDao(client);
     }
     @Test
     public void getAllAreasTest() throws IOException, InterruptedException {
-        String query = "Obed";
+        String query = "Right Bunker";
         List<Area> result = areaDao.getAllAreasFromQuery(query);
     }
     @Test
     public void getAreaTest() throws IOException, InterruptedException {
-        String uuid = "c45a18d4-5e0d-5637-a0e9-a018520dfccb";
+        String uuid = "72860a67-e121-5ab7-8bb2-0f2d9be3cdf9";
         Area result = areaDao.getArea(uuid);
     }
 }

@@ -2,6 +2,7 @@ package com.nashss.se.redpoint.dataaccess.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 /**
  * Represents a record in the climbs table.
@@ -16,5 +17,6 @@ public class Climb {
     private String grade;
     @JsonProperty("content")
     private Content content;
-
+    @JsonProperty("metadata")
+    private Metadata metadata;
 }
