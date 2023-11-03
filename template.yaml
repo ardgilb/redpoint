@@ -403,56 +403,56 @@ Resources:
   # DynamoDB Configuration
   #-----------------------------------------------------
 
-  AreasTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: "areaId"
-          AttributeType: "S"
-      KeySchema:
-        - AttributeName: "areaId"
-          KeyType: "HASH"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "areas"
+#  AreasTable:
+#    Type: AWS::DynamoDB::Table
+#    Properties:
+#      AttributeDefinitions:
+#        - AttributeName: "areaId"
+#          AttributeType: "S"
+#      KeySchema:
+#        - AttributeName: "areaId"
+#          KeyType: "HASH"
+#      BillingMode: "PAY_PER_REQUEST"
+#      TableName: "areas"
 
-  CragsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: "areaId"
-          AttributeType: "S"
-        - AttributeName: "cragId"
-          AttributeType: "S"
-      KeySchema:
-        - AttributeName: "areaId"
-          KeyType: "HASH"
-        - AttributeName: "cragId"
-          KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "crags"
+#  CragsTable:
+#    Type: AWS::DynamoDB::Table
+#    Properties:
+#      AttributeDefinitions:
+#        - AttributeName: "areaId"
+#          AttributeType: "S"
+#        - AttributeName: "cragId"
+#          AttributeType: "S"
+#      KeySchema:
+#        - AttributeName: "areaId"
+#          KeyType: "HASH"
+#        - AttributeName: "cragId"
+#          KeyType: "RANGE"
+#      BillingMode: "PAY_PER_REQUEST"
+#      TableName: "crags"
 
-  ClimbsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: "cragId"
-          AttributeType: "S"
-        - AttributeName: "climbId"
-          AttributeType: "S"
-      KeySchema:
-        - AttributeName: "cragId"
-          KeyType: "HASH"
-        - AttributeName: "climbId"
-          KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "climbs"
-      GlobalSecondaryIndexes:
-        - IndexName: "ClimbId-Climb-Index"
-          KeySchema:
-            - AttributeName: "climbId"
-              KeyType: "HASH"
-          Projection:
-            ProjectionType: "ALL"
+#  ClimbsTable:
+#    Type: AWS::DynamoDB::Table
+#    Properties:
+#      AttributeDefinitions:
+#        - AttributeName: "cragId"
+#          AttributeType: "S"
+#        - AttributeName: "climbId"
+#          AttributeType: "S"
+#      KeySchema:
+#        - AttributeName: "cragId"
+#          KeyType: "HASH"
+#        - AttributeName: "climbId"
+#          KeyType: "RANGE"
+#      BillingMode: "PAY_PER_REQUEST"
+#      TableName: "climbs"
+#      GlobalSecondaryIndexes:
+#        - IndexName: "ClimbId-Climb-Index"
+#          KeySchema:
+#            - AttributeName: "climbId"
+#              KeyType: "HASH"
+#          Projection:
+#            ProjectionType: "ALL"
 
   UsersTable:
     Type: AWS::DynamoDB::Table

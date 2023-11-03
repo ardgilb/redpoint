@@ -1,71 +1,50 @@
 package com.nashss.se.redpoint.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
-import java.util.Set;
 
-/**
- * Represents a record in the areas table.
- */
-
+@JsonIgnoreProperties(ignoreUnknown = false)
 public class Area {
-    private String areaId;
-    private String name;
-    private List<String> coordinates;
-    private String description;
-    private String directions;
-    private Set<String> crags;
-    @DynamoDBHashKey(attributeName = "areaId")
-    public String getAreaId() {
-        return areaId;
-    }
-    public void setAreaId(String areaId) {
-        this.areaId = areaId;
-    }
-    @DynamoDBAttribute(attributeName = "name")
-    public String getName() {
-        return name;
+    @JsonProperty("areaName")
+    private String areaName;
+    @JsonProperty("uuid")
+    private String uuid;
+    @JsonProperty("climbs")
+    private List<Climb> climbs;
+    @JsonProperty("children")
+    private List<Area> children;
+
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    private void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 
-    @DynamoDBAttribute(attributeName = "coordinates")
-    public List<String> getCoordinates() {
-        return coordinates;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setCoordinates(List<String> coordinates) {
-        this.coordinates = coordinates;
+    private void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    @DynamoDBAttribute(attributeName = "description")
-    public String getDescription() {
-        return description;
+    public List<Climb> getClimbs() {
+        return climbs;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setClimbs(List<Climb> climbs) {
+        this.climbs = climbs;
     }
 
-    @DynamoDBAttribute(attributeName = "directions")
-    public String getDirections() {
-        return directions;
+    public List<Area> getChildren() {
+        return children;
     }
 
-    public void setDirections(String directions) {
-        this.directions = directions;
-    }
-
-    @DynamoDBAttribute(attributeName = "crags")
-    public Set<String> getCrags() {
-        return crags;
-    }
-
-    public void setCrags(Set<String> crags) {
-        this.crags = crags;
+    private void setChildren(List<Area> children) {
+        this.children = children;
     }
 }
