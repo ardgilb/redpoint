@@ -19,13 +19,13 @@ into the app? Probably the latter.
 ## 2. Use Cases
 
 1. As a user, I would like to see a list of all the climbing areas on the homepage of the app.
-2. I'd like to be able to click into an area and see all crags in that area and the weather forecast in that area.
-3. I'd like to be able to click into a crag and see all the routes in that crag.
-4. I'd like to click on a route and see all its attributes (difficulty, description, protection, location, comments)
-5. I'd like to be able to add a comment to a route (extension: make comments that expire in 7 days, 30 days, or never)
-6. I'd like to be able to update a comment.
-7. I'd like to be able to add a route to my to-do list
-8. I'd like to be able to add a route to my tick list (including notes on it like how many tries, redpoint/onsight,
+2. As a user, I'd like to be able to click into an area and see all crags in that area and the weather forecast in that area.
+3. As a user, I'd like to be able to click into a crag and see all the routes in that crag.
+4. As a user, I'd like to click on a route and see all its attributes (difficulty, description, protection, location, comments)
+5. As a user, I'd like to be able to add a comment to a route (extension: make comments that expire in 7 days, 30 days, or never)
+6. As a user, I'd like to be able to update a comment.
+7. As a user, I'd like to be able to add a route to my to-do list
+8. As a user, I'd like to be able to add a route to my tick list (including notes on it like how many tries, redpoint/onsight,
    conditions, etc.)
 9. I'd like to be able to go to my profile and see / edit my to-do / tick lists and comments.
 10. I'd like to be able to go to another climbers profile and see their to-do/tick lists and comments.
@@ -72,7 +72,7 @@ The front end will provide intuitive ways to interact with all of these features
 ```
 String areaId;
 String name;
-double[] location;
+List<Double> location;
 String description;
 String directions;
 String weather;
