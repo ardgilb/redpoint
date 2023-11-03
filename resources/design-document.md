@@ -72,7 +72,7 @@ The front end will provide intuitive ways to interact with all of these features
 ```
 String areaId;
 String name;
-List<String> location;
+List<Double> location;
 String description;
 String directions;
 String weather;
@@ -99,8 +99,8 @@ String name;
 Double stars;
 String location;
 String Description;
-String rating;
-String style;
+Rating rating;
+Style style;
 String protection;
 List<String> comments;
 ```
@@ -109,8 +109,8 @@ List<String> comments;
 
 ```
 String userId;
-List<String> toDoList;
-List<String> tickList;
+List<Climb> toDoList;
+List<CompletedClimb> tickList;
 ```
 
 `CommentModel`
