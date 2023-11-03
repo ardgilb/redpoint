@@ -5,7 +5,7 @@
         "Item": {
           "areaId": { "S": "00001" },
           "name": { "S": "Obed River" },
-          "coordinates": { "NS": ["36.116", "-84.7317"] },
+          "coordinates": { "L": [{"S":"36.116"}, {"S":"-84.7317"}] },
           "description": {"S":  "The confluence of Clear Creek and the Obed River is home to a series of beautiful sandstone cliff bands providing some of the best sport climbing in the Southeast. Just bring a rack of draws, a stick clip (high first bolts are commonplace in these parts), and guns (double entendre intended). The rock here is Cumberland Plateau sandstone, and the sedimentary layering of the rock tends to form huge horizontal roofs, jugs, and slopers. The rock is generally bullet hard and provides good friction. Climbing happens year-round: chase the shade or sun depending on the season."},
           "crags": {"SS": ["00001", "00002", "00003"]}
         }
@@ -16,7 +16,7 @@
         "Item": {
           "areaId": { "S": "00002" },
           "name": { "S": "King's Bluff" },
-          "coordinates": { "NS": ["36.5015", "-87.3234"] },
+          "coordinates": { "L": [{"S":"36.5015"}, {"S":"-87.3234"}] },
           "description": {"S":  "Nashville's closest climbing, King's Bluff is owned and managed by the Southeastern Climbers Coalition. Southern aspect guarantees sunny cragging year-round that is usually not crowded. Decent shade is provided by overgrowth in the summer. Direct sunshine in the winter. Limestone lines 5.4 to 5.13b with small edges, flexing flakes and sweet pockets. Mostly sport with a few trad and mixed routes. Approximately 150 climbs 35-70 feet tall. The top of the the cliff is off limits, so the only way to set up topropes is by first leading the route. No camping in the area. Consider making a donation to the SCC at the box located along the approach trail. There are plenty of places to buy adult beverages in Screaming Eagle country. Developed by Walter Wilkinson and Terry Parker in the early 1990's. Classics include Baby Kangaroo 5.8+, First Plum 5.10b, LAG 5.9 and Ritz Bitz 5.10c."},
           "crags": {"SS": ["00004"]}
         }
