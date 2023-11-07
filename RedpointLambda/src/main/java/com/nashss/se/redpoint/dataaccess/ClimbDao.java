@@ -12,6 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -27,6 +28,7 @@ public class ClimbDao {
      *
      * @param client the {@link HttpClient} used to interact with the OpenBeta API
      */
+    @Inject
     public ClimbDao(HttpClient client) {
         this.client = client;
     }

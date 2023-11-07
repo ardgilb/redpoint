@@ -2,8 +2,6 @@ package com.nashss.se.redpoint.dataaccess.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-
 /**
  * Represents a record in the climbs table.
  */

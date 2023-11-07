@@ -32,7 +32,7 @@ public class GetAllAreasRequest {
 
     @Override
     public String toString() {
-        return "GetAllAreasFromQueryRequest{" +
+        return "GetAllAreasRequest{" +
             "query='" + query + '\'' +
             '}';
     }
