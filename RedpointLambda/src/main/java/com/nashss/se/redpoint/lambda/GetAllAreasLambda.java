@@ -6,6 +6,9 @@ import com.nashss.se.redpoint.activity.result.GetAllAreasResult;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class GetAllAreasLambda
     extends LambdaActivityRunner<GetAllAreasRequest, GetAllAreasResult>
     implements RequestHandler<LambdaRequest<GetAllAreasRequest>, LambdaResponse> {

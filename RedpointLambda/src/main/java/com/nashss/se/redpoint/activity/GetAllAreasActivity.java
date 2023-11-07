@@ -5,6 +5,7 @@ import com.nashss.se.redpoint.activity.result.GetAllAreasResult;
 import com.nashss.se.redpoint.dataaccess.AreaDao;
 import com.nashss.se.redpoint.dataaccess.models.Area;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,6 +33,9 @@ public class GetAllAreasActivity {
      */
     public GetAllAreasResult handleRequest(GetAllAreasRequest request) {
         List<Area> areas = areaDao.getAllAreasFromQuery(request.getQuery());
+        if (areas.isEmpty()) {
+            areas = new ArrayList<>();
+        }
         return GetAllAreasResult.builder()
             .withAreaList(areas)
             .build();

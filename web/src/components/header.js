@@ -1,4 +1,4 @@
-import MusicPlaylistClient from '../api/musicPlaylistClient';
+import RedpointClient from '../api/RedpointClient';
 import BindingClass from "../util/bindingClass";
 
 /**
@@ -14,7 +14,7 @@ export default class Header extends BindingClass {
         ];
         this.bindClassMethods(methodsToBind, this);
 
-        this.client = new MusicPlaylistClient();
+        this.client = new RedpointClient();
     }
 
     /**
@@ -35,9 +35,9 @@ export default class Header extends BindingClass {
         const siteTitleContainer = document.createElement('div');
         siteTitleContainer.classList.add('site-title-container');
 
-        const covertConnectionText = document.createElement('div');
-        covertConnectionText.classList.add('covert-connection-text', 'large-text');
-        covertConnectionText.innerText = 'CovertConnection';
+        const redpointText = document.createElement('div');
+        redpointText.classList.add('redpoint-text', 'large-text');
+        redpointText.innerText = 'Redpoint';
 
         const lineBreak = document.createElement('br');
 
@@ -47,7 +47,7 @@ export default class Header extends BindingClass {
         homeButton.href = 'index.html';
         homeButton.innerText = 'Home';
 
-        siteTitleContainer.appendChild(covertConnectionText);
+        siteTitleContainer.appendChild(redpointText);
         siteTitleContainer.appendChild(lineBreak);
         siteTitleContainer.appendChild(homeButton);
 

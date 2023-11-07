@@ -24,14 +24,9 @@ module.exports = {
   },
   entry: {
     createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
-    viewContact: path.resolve(__dirname, 'src', 'pages', 'viewContact.js'),
-    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
+    viewArea: path.resolve(__dirname, 'src', 'pages', 'viewArea.js'),
     searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
-    createGroup: path.resolve(__dirname, 'src', 'pages', 'createGroup.js'),
-    viewGroup: path.resolve(__dirname, 'src', 'pages', 'viewGroup.js'),
-    allContacts: path.resolve(__dirname, 'src', 'pages', 'allContacts.js'),
-    getAllGroups: path.resolve(__dirname, 'src', 'pages', 'getAllGroups.js'),
-    createContact: path.resolve(__dirname, 'src', 'pages', 'createContact.js'),
+    searchAreas: path.resolve(__dirname, 'src', 'pages', 'searchAreas.js'),
     test: path.resolve(__dirname, 'src', 'pages', 'test.js'),
   },
   output: {
