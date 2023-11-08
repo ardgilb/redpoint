@@ -15,7 +15,7 @@ export default class RedpointClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'search', 'getArea', 'getPlaylistSongs', 'createPlaylist'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'search', 'getArea', 'getClimb', 'createPlaylist'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -72,10 +72,10 @@ export default class RedpointClient extends BindingClass {
     }
 
     /**
-     * Gets the playlist for the given ID.
-     * @param id Unique identifier for a playlist
+     * Gets the area for the given ID.
+     * @param id Unique identifier for a area
      * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The playlist's metadata.
+     * @returns The area's metadata.
      */
     async getArea(uuid, errorCallback) {
         try {
@@ -87,19 +87,19 @@ export default class RedpointClient extends BindingClass {
     }
 
     /**
-     * Get the songs on a given playlist by the playlist's identifier.
-     * @param id Unique identifier for a playlist
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The list of songs on a playlist.
-     */
-    async getPlaylistSongs(id, errorCallback) {
-        try {
-            const response = await this.axiosClient.get(`playlists/${id}/songs`);
-            return response.data.songList;
-        } catch (error) {
-            this.handleError(error, errorCallback)
+         * Gets the climb for the given ID.
+         * @param id Unique identifier for a climb
+         * @param errorCallback (Optional) A function to execute if the call fails.
+         * @returns The climb's metadata.
+         */
+    async getClimb(uuid, errorCallback) {
+            try {
+                const response = await this.axiosClient.get(`climb/${uuid}`);
+                return response.data.climb;
+            } catch (error) {
+                this.handleError(error, errorCallback)
+            }
         }
-    }
 
     /**
      * Create a new playlist owned by the current user.

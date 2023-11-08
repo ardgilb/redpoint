@@ -31,8 +31,6 @@ class ViewArea extends BindingClass {
      * Add the header to the page and load the MusicPlaylistClient.
      */
     mount() {
-        document.getElementById('add-song').addEventListener('click', this.addSong);
-
         this.header.addHeaderToPage();
 
         this.client = new RedpointClient();
@@ -47,25 +45,26 @@ class ViewArea extends BindingClass {
         if (area == null) {
             return;
         }
-
+        if(area.content.description != "" && area.content.description != null) {
+            document.getElementById("description").innerText = "Description";
+            document.getElementById("desc-text").innerText = area.content.description;
+        }
         document.getElementById('area-name').innerText = area.areaName;
         if(area.children.length != 0){
-            let areahtml = '<table><tr><th>Areas</th><th>Song Count</th><th>Tags</th></tr>';
+            let areahtml = '<table><tr><th>Areas</th></tr>';
                             for (const child of area.children) {
                                 areahtml += `
                                 <tr>
                                     <td>
                                         <a href="area.html?uuid=${child.uuid}">${child.areaName}</a>
                                     </td>
-                                    <td>${area.songCount}</td>
-                                    <td>${area.tags?.join(', ')}</td>
                                 </tr>`;
                             }
                             areahtml += '</table>';
                     document.getElementById('children').innerHTML = areahtml;
         }
         if(area.climbs.length != 0) {
-            let climbhtml = '<table><tr><th>Climbs</th><th>Rating</th><th>Tags</th></tr>';
+            let climbhtml = '<table><tr><th>Climbs</th><th>Rating</th></tr>';
                                     for (const climb of area.climbs) {
                                         climbhtml += `
                                         <tr>
@@ -73,7 +72,6 @@ class ViewArea extends BindingClass {
                                                 <a href="climb.html?uuid=${climb.uuid}">${climb.name}</a>
                                             </td>
                                             <td>${climb.yds}</td>
-                                            <td>${area.tags?.join(', ')}</td>
                                         </tr>`;
                                     }
                                     climbhtml += '</table>';
