@@ -1,7 +1,12 @@
 package com.nashss.se.redpoint.dataaccess.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.nashss.se.redpoint.converters.ZonedDateTimeConverter;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 
 import java.time.ZonedDateTime;
 @DynamoDBTable(tableName = "comments")

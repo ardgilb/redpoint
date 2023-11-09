@@ -1,10 +1,10 @@
 package com.nashss.se.redpoint.lambda;
 
+import com.nashss.se.redpoint.activity.request.CreateCommentRequest;
+import com.nashss.se.redpoint.activity.result.CreateCommentResult;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.nashss.se.redpoint.activity.request.CreateCommentRequest;
-import com.nashss.se.redpoint.activity.result.CreateCommentResult;
 
 public class CreateCommentLambda
     extends LambdaActivityRunner<CreateCommentRequest, CreateCommentResult>

@@ -6,9 +6,6 @@ import com.nashss.se.redpoint.converters.ModelConverter;
 import com.nashss.se.redpoint.dataaccess.CommentDao;
 import com.nashss.se.redpoint.dataaccess.models.Comment;
 
-import java.time.ZonedDateTime;
-import java.util.UUID;
-
 import javax.inject.Inject;
 
 public class DeleteCommentActivity {
@@ -37,7 +34,7 @@ public class DeleteCommentActivity {
 
         Comment commentInTable = commentDao.getComment(comment);
 
-        if(!commentInTable.getUserId().equals(request.getUserId())) {
+        if (!commentInTable.getUserId().equals(request.getUserId())) {
             throw new SecurityException("Can't delete other users comments");
         }
         commentDao.deleteComment(comment);

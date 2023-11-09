@@ -1,11 +1,10 @@
 package com.nashss.se.redpoint.lambda;
 
-
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.redpoint.activity.request.DeleteCommentRequest;
 import com.nashss.se.redpoint.activity.result.DeleteCommentResult;
 
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 public class DeleteCommentLambda
     extends LambdaActivityRunner<DeleteCommentRequest, DeleteCommentResult>
     implements RequestHandler<AuthenticatedLambdaRequest<DeleteCommentRequest>, LambdaResponse> {

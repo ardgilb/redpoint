@@ -1,9 +1,5 @@
 package com.nashss.se.redpoint.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.time.ZonedDateTime;
-
 public class CommentModel {
     private String commentId;
 
@@ -11,7 +7,7 @@ public class CommentModel {
     private String userId;
     private String climbId;
     private String text;
-
+    //CHECKSTYLE:OFF:Builder
     public CommentModel(String commentId, String timeStamp, String userId, String climbId, String text) {
         this.commentId = commentId;
         this.timeStamp = timeStamp;
@@ -39,7 +35,6 @@ public class CommentModel {
     public String getText() {
         return text;
     }
-    //CHECKSTYLE:OFF:Builder
     public static Builder builder() {
         return new Builder();
     }

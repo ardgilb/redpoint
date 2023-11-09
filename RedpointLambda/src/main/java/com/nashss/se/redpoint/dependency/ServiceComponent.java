@@ -1,6 +1,10 @@
 package com.nashss.se.redpoint.dependency;
 
-import com.nashss.se.redpoint.activity.*;
+import com.nashss.se.redpoint.activity.CreateCommentActivity;
+import com.nashss.se.redpoint.activity.DeleteCommentActivity;
+import com.nashss.se.redpoint.activity.GetAllAreasActivity;
+import com.nashss.se.redpoint.activity.GetAreaActivity;
+import com.nashss.se.redpoint.activity.GetClimbActivity;
 
 import dagger.Component;
 
