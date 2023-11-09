@@ -1,14 +1,12 @@
 package com.nashss.se.redpoint.dataaccess;
 
 import com.nashss.se.redpoint.dataaccess.models.Area;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nashss.se.redpoint.exceptions.AreaNotFoundException;
+import com.nashss.se.redpoint.metrics.MetricsConstants;
+import com.nashss.se.redpoint.metrics.MetricsPublisher;
+import com.nashss.se.redpoint.utils.HttpUtils;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -22,17 +20,19 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class AreaDao {
+    private final MetricsPublisher metricsPublisher;
     private final HttpClient client;
-    private final String serviceUrl = "https://stg-api.openbeta.io";
 
     /**
      * Instantiates a AreaDao object.
      *
      * @param client the {@link HttpClient} used to interact with the OpenBeta API
+     * @param metricsPublisher the {@link MetricsPublisher} used to publish metrics to CloudWatch
      */
     @Inject
-    public AreaDao(HttpClient client) {
+    public AreaDao(HttpClient client, MetricsPublisher metricsPublisher) {
         this.client = client;
+        this.metricsPublisher = metricsPublisher;
     }
     /**
      * Returns the {@link Area} corresponding to the specified areaId.
@@ -45,7 +45,7 @@ public class AreaDao {
             uuid + "\\\") { areaName content { description } metadata{ lat lng }" +
             "climbs { name uuid yds } children { areaName uuid } } }\"}";
 
-        HttpRequest request = httpRequestBuilder(body);
+        HttpRequest request = HttpUtils.httpRequestBuilder(body);
         HttpResponse<String> response;
 
         try {
@@ -53,8 +53,13 @@ public class AreaDao {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("getArea client.send failed" + e.getMessage());
         }
-
-        return getAreaFromHttpResponse(response);
+        Area area = HttpUtils.getAreaFromHttpResponse(response);
+        if (area == null) {
+            metricsPublisher.addCount(MetricsConstants.GETAREA_AREANOTFOUND_COUNT, 1);
+            throw new AreaNotFoundException("Could not find area with id: " + uuid);
+        }
+        metricsPublisher.addCount(MetricsConstants.GETAREA_AREANOTFOUND_COUNT, 0);
+        return area;
     }
     /**
      * Returns the list of all Areas matching the query.
@@ -66,7 +71,7 @@ public class AreaDao {
         String body = "{\"query\":\"query { areas(filter: {area_name: {match: \\\"" +
             query + "\\\"}}) { areaName uuid climbs { name uuid yds } children { areaName uuid } } }\"}";
 
-        HttpRequest request = httpRequestBuilder(body);
+        HttpRequest request = HttpUtils.httpRequestBuilder(body);
 
         HttpResponse<String> response;
 
@@ -75,36 +80,6 @@ public class AreaDao {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("getAllAreasFromQuery client.send failed" + e.getStackTrace());
         }
-        return getListFromHttpResponse(response);
-    }
-    private List<Area> getListFromHttpResponse(HttpResponse<String> response) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(response.body());
-            JsonNode areasNode = rootNode.get("data").get("areas");
-            String trimmedJson = objectMapper.writeValueAsString(areasNode);
-            return objectMapper.readValue(trimmedJson, new TypeReference<List<Area>>() { });
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Json Processing failed for getAllAreasFromQuery" + e.getStackTrace());
-        }
-    }
-    private Area getAreaFromHttpResponse(HttpResponse<String> response) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(response.body());
-            JsonNode areaNode = rootNode.get("data").get("area");
-            String trimmedJson = objectMapper.writeValueAsString(areaNode);
-            return objectMapper.readValue(trimmedJson, Area.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Json Processing failed for getArea" + e.getStackTrace());
-        }
-
-    }
-    private HttpRequest httpRequestBuilder(String body) {
-        return HttpRequest.newBuilder()
-            .uri(URI.create(serviceUrl))
-            .header("content-type", "application/json")
-            .POST(HttpRequest.BodyPublishers.ofString(body))
-            .build();
+        return HttpUtils.getListFromHttpResponse(response);
     }
 }
