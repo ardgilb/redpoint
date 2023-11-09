@@ -31,4 +31,21 @@ public class CommentDao {
         this.mapper.save(comment);
         return comment;
     }
+    /**
+     * Deletes the given comment.
+     *
+     * @param comment The comment to delete
+     */
+    public void deleteComment(Comment comment) {
+        this.mapper.delete(comment);
+    }
+    /**
+     * Gets the given comment.
+     *
+     * @param comment The comment to get
+     * @return The Comment object that was retrieved.
+     */
+    public Comment getComment(Comment comment) {
+        return this.mapper.load(comment);
+    }
 }

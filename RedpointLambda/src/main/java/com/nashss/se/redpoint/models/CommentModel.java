@@ -5,17 +5,23 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.ZonedDateTime;
 
 public class CommentModel {
+    private String commentId;
 
     private String timeStamp;
     private String userId;
     private String climbId;
     private String text;
 
-    public CommentModel(String timeStamp, String userId, String climbId, String text) {
+    public CommentModel(String commentId, String timeStamp, String userId, String climbId, String text) {
+        this.commentId = commentId;
         this.timeStamp = timeStamp;
         this.userId = userId;
         this.climbId = climbId;
         this.text = text;
+    }
+
+    public String getCommentId() {
+        return commentId;
     }
 
     public String getTimeStamp() {
@@ -39,10 +45,15 @@ public class CommentModel {
     }
 
     public static class Builder {
+        private String commentId;
         private String timeStamp;
         private String userId;
         private String climbId;
         private String text;
+        public Builder withCommentId(String commentId) {
+            this.commentId = commentId;
+            return this;
+        }
 
         public Builder withTimeStamp(String timeStamp) {
             this.timeStamp = timeStamp;
@@ -65,7 +76,7 @@ public class CommentModel {
         }
 
         public CommentModel build() {
-            return new CommentModel(timeStamp, userId, climbId, text);
+            return new CommentModel(commentId, timeStamp, userId, climbId, text);
         }
     }
 }

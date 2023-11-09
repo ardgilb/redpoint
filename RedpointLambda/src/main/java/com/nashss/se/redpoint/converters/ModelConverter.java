@@ -14,6 +14,7 @@ public class ModelConverter {
     public static CommentModel toCommentModel(Comment comment) {
 
         return CommentModel.builder()
+            .withCommentId(comment.getCommentId())
             .withTimeStamp(comment.getTimeStamp().toString())
             .withUserId(comment.getUserId())
             .withClimbId(comment.getClimbId())

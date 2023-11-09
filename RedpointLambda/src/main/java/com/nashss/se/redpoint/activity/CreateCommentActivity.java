@@ -7,6 +7,7 @@ import com.nashss.se.redpoint.dataaccess.CommentDao;
 import com.nashss.se.redpoint.dataaccess.models.Comment;
 
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,7 @@ public class CreateCommentActivity {
      */
     public CreateCommentResult handleRequest(CreateCommentRequest request) {
         Comment comment = new Comment();
+        comment.setCommentId(String.valueOf(UUID.randomUUID()));
         comment.setTimeStamp(ZonedDateTime.now());
         comment.setUserId(request.getUserId());
         comment.setClimbId(request.getClimbId());

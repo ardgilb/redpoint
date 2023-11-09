@@ -6,16 +6,24 @@ import com.nashss.se.redpoint.converters.ZonedDateTimeConverter;
 import java.time.ZonedDateTime;
 @DynamoDBTable(tableName = "comments")
 public class Comment {
-    private static final String CLIMB_INDEX = "ClimbIdAndTimeIndex";
+    private static final String CLIMB_INDEX = "ClimbIdIndex";
+    @DynamoDBHashKey(attributeName = "commentId")
+    private String commentId;
     @DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
-    @DynamoDBRangeKey(attributeName = "timeStamp")
     private ZonedDateTime timeStamp;
-    @DynamoDBHashKey(attributeName = "userId")
     private String userId;
     @DynamoDBIndexHashKey(globalSecondaryIndexName = CLIMB_INDEX, attributeName = "climbId")
     private String climbId;
     @DynamoDBAttribute(attributeName = "text")
     private String text;
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
 
     public ZonedDateTime getTimeStamp() {
         return timeStamp;
