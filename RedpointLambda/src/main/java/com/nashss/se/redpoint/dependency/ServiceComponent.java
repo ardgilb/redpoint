@@ -1,5 +1,7 @@
 package com.nashss.se.redpoint.dependency;
 
+import com.nashss.se.redpoint.activity.CreateCommentActivity;
+import com.nashss.se.redpoint.activity.DeleteCommentActivity;
 import com.nashss.se.redpoint.activity.GetAllAreasActivity;
 import com.nashss.se.redpoint.activity.GetAreaActivity;
 import com.nashss.se.redpoint.activity.GetClimbActivity;
@@ -30,5 +32,16 @@ public interface ServiceComponent {
      * @return GetClimbActivity
      */
     GetClimbActivity provideGetClimbActivity();
+    /**
+     * Provides the relevant activity.
+     * @return CreateCommentActivity
+     */
+    CreateCommentActivity provideCreateCommentActivity();
+    /**
+     * Provides the relevant activity.
+     * @return CreateCommentActivity
+     */
+    DeleteCommentActivity provideDeleteCommentActivity();
+
 }
 
