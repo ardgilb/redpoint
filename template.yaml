@@ -205,13 +205,13 @@ Resources:
               - Effect: Allow
                 Action: dynamodb:*
                 Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/comments"
-        - PolicyName: 'AccessUsersTable'
+        - PolicyName: 'AccessAscentsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/users"
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/ascents"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
@@ -288,7 +288,7 @@ Resources:
           Variables:
             JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
         Events:
-          MusicPlaylistService:
+          Redpoint:
             Type: Api
             Properties:
               Path: /comments
@@ -307,7 +307,7 @@ Resources:
         Variables:
           JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
       Events:
-        MusicPlaylistService:
+        Redpoint:
           Type: Api
           Properties:
             Path: /comments
@@ -326,218 +326,106 @@ Resources:
         Variables:
           JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
       Events:
-        MusicPlaylistService:
+        Redpoint:
           Type: Api
           Properties:
             Path: /comments/{climbId}
             Method: get
-
-  #  GetContactLambda:
-  #    Type: AWS::Serverless::Function
-  #    Properties:
-  #      Role: !GetAtt AccessRole.Arn
-  #      CodeUri: MySocialNetworkLambda
-  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetContactLambda::handleRequest
-  #      Runtime: java11
-  #      Architectures:
-  #        - x86_64
-  #      MemorySize: 512
-  #      Environment:
-  #        Variables:
-  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-  #      Events:
-  #        MusicPlaylistService:
-  #          Type: Api
-  #          Properties:
-  #            Path: /contacts/{contactId}
-  #            Method: get
-  #
-  #  GetContactsInGroupLambda:
-  #    Type: AWS::Serverless::Function
-  #    Properties:
-  #      Role: !GetAtt AccessRole.Arn
-  #      CodeUri: MySocialNetworkLambda
-  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetContactsInGroupLambda::handleRequest
-  #      Runtime: java11
-  #      Architectures:
-  #        - x86_64
-  #      MemorySize: 512
-  #      Environment:
-  #        Variables:
-  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-  #      Events:
-  #        MusicPlaylistService:
-  #          Type: Api
-  #          Properties:
-  #            Path: /groups/{name}/contacts
-  #            Method: get
-  #
-  #  GetAllContactsLambda:
-  #    Type: AWS::Serverless::Function
-  #    Properties:
-  #      Role: !GetAtt AccessRole.Arn
-  #      CodeUri: MySocialNetworkLambda
-  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllContactsLambda::handleRequest
-  #      Runtime: java11
-  #      Architectures:
-  #        - x86_64
-  #      MemorySize: 512
-  #      Environment:
-  #        Variables:
-  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-  #      Events:
-  #        MusicPlaylistService:
-  #          Type: Api
-  #          Properties:
-  #            Path: /contacts
-  #            Method: get
-  #
-  #  CreateGroupLambda:
-  #    Type: AWS::Serverless::Function
-  #    Properties:
-  #      Role: !GetAtt AccessRole.Arn
-  #      CodeUri: MySocialNetworkLambda
-  #      Handler: com.nashss.se.mysocialnetwork.lambda.CreateGroupLambda::handleRequest
-  #      Runtime: java11
-  #      Architectures:
-  #        - x86_64
-  #      MemorySize: 512
-  #      Environment:
-  #        Variables:
-  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-  #      Events:
-  #        MusicPlaylistService:
-  #          Type: Api
-  #          Properties:
-  #            Path: /groups
-  #            Method: post
-  #
-  #  CreateContactLambda:
-  #    Type: AWS::Serverless::Function
-  #    Properties:
-  #      Role: !GetAtt AccessRole.Arn
-  #      CodeUri: MySocialNetworkLambda
-  #      Handler: com.nashss.se.mysocialnetwork.lambda.CreateContactLambda::handleRequest
-  #      Runtime: java11
-  #      Architectures:
-  #        - x86_64
-  #      MemorySize: 512
-  #      Environment:
-  #        Variables:
-  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-  #      Events:
-  #        MusicPlaylistService:
-  #          Type: Api
-  #          Properties:
-  #            Path: /contacts
-  #            Method: post
-  #
-  #  GetAllGroupsLambda:
-  #    Type: AWS::Serverless::Function
-  #    Properties:
-  #      Role: !GetAtt AccessRole.Arn
-  #      CodeUri: MySocialNetworkLambda
-  #      Handler: com.nashss.se.mysocialnetwork.lambda.GetAllGroupsLambda::handleRequest
-  #      Runtime: java11
-  #      Architectures:
-  #        - x86_64
-  #      MemorySize: 512
-  #      Environment:
-  #        Variables:
-  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-  #      Events:
-  #        MusicPlaylistService:
-  #          Type: Api
-  #          Properties:
-  #            Path: /groups
-  #            Method: get
-  #
-  #  AddContactToGroupLambda:
-  #    Type: AWS::Serverless::Function
-  #    Properties:
-  #      Role: !GetAtt AccessRole.Arn
-  #      CodeUri: MySocialNetworkLambda
-  #      Handler: com.nashss.se.mysocialnetwork.lambda.AddContactToGroupLambda::handleRequest
-  #      Runtime: java11
-  #      Architectures:
-  #        - x86_64
-  #      MemorySize: 512
-  #      Environment:
-  #        Variables:
-  #          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-  #      Events:
-  #        MySocialNetwork:
-  #          Type: Api
-  #          Properties:
-  #            Path: /groups/{name}/contacts
-  #            Method: post
-
+  CreateLogbookEntryLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: RedpointLambda
+      Handler: com.nashss.se.redpoint.lambda.CreateLogbookEntryLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        Redpoint:
+          Type: Api
+          Properties:
+            Path: /entries
+            Method: post
+  UpdateLogbookEntryLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: RedpointLambda
+      Handler: com.nashss.se.redpoint.lambda.UpdateLogbookEntryLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        Redpoint:
+          Type: Api
+          Properties:
+            Path: /entries
+            Method: put
+  DeleteLogbookEntryLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: RedpointLambda
+      Handler: com.nashss.se.redpoint.lambda.DeleteLogbookEntryLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        Redpoint:
+          Type: Api
+          Properties:
+            Path: /entries
+            Method: delete
+  GetAllLogbookEntriesForUserLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: RedpointLambda
+      Handler: com.nashss.se.redpoint.lambda.GetAllLogbookEntriesForUserLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        Redpoint:
+          Type: Api
+          Properties:
+            Path: /entries/{userId}
+            Method: get
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
 
-#  AreasTable:
-#    Type: AWS::DynamoDB::Table
-#    Properties:
-#      AttributeDefinitions:
-#        - AttributeName: "areaId"
-#          AttributeType: "S"
-#      KeySchema:
-#        - AttributeName: "areaId"
-#          KeyType: "HASH"
-#      BillingMode: "PAY_PER_REQUEST"
-#      TableName: "areas"
-
-#  CragsTable:
-#    Type: AWS::DynamoDB::Table
-#    Properties:
-#      AttributeDefinitions:
-#        - AttributeName: "areaId"
-#          AttributeType: "S"
-#        - AttributeName: "cragId"
-#          AttributeType: "S"
-#      KeySchema:
-#        - AttributeName: "areaId"
-#          KeyType: "HASH"
-#        - AttributeName: "cragId"
-#          KeyType: "RANGE"
-#      BillingMode: "PAY_PER_REQUEST"
-#      TableName: "crags"
-
-#  ClimbsTable:
-#    Type: AWS::DynamoDB::Table
-#    Properties:
-#      AttributeDefinitions:
-#        - AttributeName: "cragId"
-#          AttributeType: "S"
-#        - AttributeName: "climbId"
-#          AttributeType: "S"
-#      KeySchema:
-#        - AttributeName: "cragId"
-#          KeyType: "HASH"
-#        - AttributeName: "climbId"
-#          KeyType: "RANGE"
-#      BillingMode: "PAY_PER_REQUEST"
-#      TableName: "climbs"
-#      GlobalSecondaryIndexes:
-#        - IndexName: "ClimbId-Climb-Index"
-#          KeySchema:
-#            - AttributeName: "climbId"
-#              KeyType: "HASH"
-#          Projection:
-#            ProjectionType: "ALL"
-
-  UsersTable:
+  AscentsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
         - AttributeName: "userId"
           AttributeType: "S"
+        - AttributeName: "climbId"
+          AttributeType: "S"
       KeySchema:
         - AttributeName: "userId"
           KeyType: "HASH"
+        - AttributeName: "climbId"
+          KeyType: "RANGE"
       BillingMode: "PAY_PER_REQUEST"
-      TableName: "users"
+      TableName: "logbookEntries"
 
 
   CommentTable:

@@ -1,12 +1,16 @@
 package com.nashss.se.redpoint.dependency;
 
 import com.nashss.se.redpoint.activity.CreateCommentActivity;
+import com.nashss.se.redpoint.activity.CreateLogbookEntryActivity;
 import com.nashss.se.redpoint.activity.DeleteCommentActivity;
+import com.nashss.se.redpoint.activity.DeleteLogbookEntryActivity;
 import com.nashss.se.redpoint.activity.GetAllAreasActivity;
+import com.nashss.se.redpoint.activity.GetAllLogbookEntriesForUserActivity;
 import com.nashss.se.redpoint.activity.GetAreaActivity;
 import com.nashss.se.redpoint.activity.GetClimbActivity;
 import com.nashss.se.redpoint.activity.GetCommentsForClimbActivity;
 
+import com.nashss.se.redpoint.activity.UpdateLogbookEntryActivity;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -48,6 +52,25 @@ public interface ServiceComponent {
      * @return GetCommentsForClimbActivity
      */
     GetCommentsForClimbActivity provideGetCommentsForClimbActivity();
-
+    /**
+     * Provides the relevant activity.
+     * @return CreateLogbookEntryActivity
+     */
+    CreateLogbookEntryActivity provideCreateLogbookEntryActivity();
+    /**
+     * Provides the relevant activity.
+     * @return UpdateLogbookEntryActivity
+     */
+    UpdateLogbookEntryActivity provideUpdateLogbookEntryActivity();
+    /**
+     * Provides the relevant activity.
+     * @return DeleteLogbookEntryActivity
+     */
+    DeleteLogbookEntryActivity provideDeleteLogbookEntryActivity();
+    /**
+     * Provides the relevant activity.
+     * @return GetAllLogbookEntriesForUser
+     */
+    GetAllLogbookEntriesForUserActivity provideGetAllLogbookEntriesForUserActivity();
 }
 
