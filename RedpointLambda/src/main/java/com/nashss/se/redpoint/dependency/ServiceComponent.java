@@ -5,6 +5,7 @@ import com.nashss.se.redpoint.activity.DeleteCommentActivity;
 import com.nashss.se.redpoint.activity.GetAllAreasActivity;
 import com.nashss.se.redpoint.activity.GetAreaActivity;
 import com.nashss.se.redpoint.activity.GetClimbActivity;
+import com.nashss.se.redpoint.activity.GetCommentsForClimbActivity;
 
 import dagger.Component;
 
@@ -42,6 +43,11 @@ public interface ServiceComponent {
      * @return CreateCommentActivity
      */
     DeleteCommentActivity provideDeleteCommentActivity();
+    /**
+     * Provides the relevant activity.
+     * @return GetCommentsForClimbActivity
+     */
+    GetCommentsForClimbActivity provideGetCommentsForClimbActivity();
 
 }
 

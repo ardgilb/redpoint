@@ -1,6 +1,9 @@
 package com.nashss.se.redpoint.models;
 
-public class CommentModel {
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class CommentModel implements Comparable<CommentModel> {
     private String commentId;
 
     private String timeStamp;
@@ -37,6 +40,11 @@ public class CommentModel {
     }
     public static Builder builder() {
         return new Builder();
+    }
+
+    @Override
+    public int compareTo(CommentModel other) {
+        return ZonedDateTime.parse(this.timeStamp).compareTo(ZonedDateTime.parse(other.timeStamp));
     }
 
     public static class Builder {
