@@ -36,7 +36,7 @@ public class LogbookEntryModel implements Comparable<LogbookEntryModel> {
 
     @Override
     public int compareTo(LogbookEntryModel other) {
-        return LocalDate.parse(this.date).compareTo(LocalDate.parse(other.date));
+        return -LocalDate.parse(this.date).compareTo(LocalDate.parse(other.date));
     }
 
     public static class Builder {

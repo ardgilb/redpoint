@@ -9,7 +9,9 @@ import com.nashss.se.redpoint.models.LogbookEntryModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 /**
@@ -41,15 +43,11 @@ public class GetAllLogbookEntriesForUserActivity {
      */
     public GetAllLogbookEntriesForUserResult
         handleRequest(final GetAllLogbookEntriesForUserRequest getAllLogbookEntriesRequest) {
-        ModelConverter mc = new ModelConverter();
-        List<LogbookEntry> entryList =
-            entryDao.getAllLogbookEntries(getAllLogbookEntriesRequest.getUserId());
-        List<LogbookEntryModel> entryModelList = new ArrayList<>();
-        for (LogbookEntry entry : entryList) {
-            entryModelList.add(mc.toLogbookEntryModel(entry));
-        }
-        Collections.sort(entryModelList);
-        Collections.reverse(entryModelList);
+        List<LogbookEntryModel> entryModelList = entryDao
+            .getAllLogbookEntries(getAllLogbookEntriesRequest.getUserId()).stream()
+            .map(entry -> ModelConverter.toLogbookEntryModel(entry))
+            .sorted()
+            .collect(Collectors.toList());
         return GetAllLogbookEntriesForUserResult.builder()
             .withLogbookEntryList(entryModelList)
             .build();

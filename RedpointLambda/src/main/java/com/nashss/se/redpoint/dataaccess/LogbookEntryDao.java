@@ -1,6 +1,8 @@
 package com.nashss.se.redpoint.dataaccess;
 
 import com.nashss.se.redpoint.dataaccess.models.LogbookEntry;
+import com.nashss.se.redpoint.exceptions.LogbookEntryNotFoundException;
+import com.nashss.se.redpoint.metrics.MetricsConstants;
 import com.nashss.se.redpoint.metrics.MetricsPublisher;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -52,7 +54,14 @@ public class LogbookEntryDao {
      * @return The LogbookEntry object that was retrieved.
      */
     public LogbookEntry getLogbookEntry(LogbookEntry entry) {
-        return this.mapper.load(entry);
+        LogbookEntry result = this.mapper.load(entry);
+        if(result == null){
+            metricsPublisher.addCount(MetricsConstants.GETENTRY_ENTRYNOTFOUND_COUNT, 1);
+            throw new LogbookEntryNotFoundException("No Logbook Entry found matching parameters");
+        }
+        metricsPublisher.addCount(MetricsConstants.GETENTRY_ENTRYNOTFOUND_COUNT, 0);
+
+        return result;
     }
     /**
      * Gets all entries matching the given userId.
