@@ -4,12 +4,8 @@ import com.nashss.se.redpoint.activity.request.GetAllLogbookEntriesForUserReques
 import com.nashss.se.redpoint.activity.result.GetAllLogbookEntriesForUserResult;
 import com.nashss.se.redpoint.converters.ModelConverter;
 import com.nashss.se.redpoint.dataaccess.LogbookEntryDao;
-import com.nashss.se.redpoint.dataaccess.models.LogbookEntry;
 import com.nashss.se.redpoint.models.LogbookEntryModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 

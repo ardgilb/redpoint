@@ -55,7 +55,7 @@ public class LogbookEntryDao {
      */
     public LogbookEntry getLogbookEntry(LogbookEntry entry) {
         LogbookEntry result = this.mapper.load(entry);
-        if(result == null){
+        if (result == null) {
             metricsPublisher.addCount(MetricsConstants.GETENTRY_ENTRYNOTFOUND_COUNT, 1);
             throw new LogbookEntryNotFoundException("No Logbook Entry found matching parameters");
         }
