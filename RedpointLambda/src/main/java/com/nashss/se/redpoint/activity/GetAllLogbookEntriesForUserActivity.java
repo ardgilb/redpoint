@@ -1,7 +1,7 @@
 package com.nashss.se.redpoint.activity;
 
-import com.nashss.se.redpoint.activity.result.GetAllLogbookEntriesForUserResult;
 import com.nashss.se.redpoint.activity.request.GetAllLogbookEntriesForUserRequest;
+import com.nashss.se.redpoint.activity.result.GetAllLogbookEntriesForUserResult;
 import com.nashss.se.redpoint.converters.ModelConverter;
 import com.nashss.se.redpoint.dataaccess.LogbookEntryDao;
 import com.nashss.se.redpoint.dataaccess.models.LogbookEntry;
@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
-
 /**
  * Implementation of the GetAllLogbookEntriesForUser for Redpoints's GetAllLogbookEntries API.
  * <p>
@@ -40,9 +39,11 @@ public class GetAllLogbookEntriesForUserActivity {
      * @param getAllLogbookEntriesRequest request object containing the climbID associated with it
      * @return GetAllLogbookEntriesResult result object containing the API defined LogbookEntryModel
      */
-    public GetAllLogbookEntriesForUserResult handleRequest(final GetAllLogbookEntriesForUserRequest getAllLogbookEntriesRequest) {
+    public GetAllLogbookEntriesForUserResult
+        handleRequest(final GetAllLogbookEntriesForUserRequest getAllLogbookEntriesRequest) {
         ModelConverter mc = new ModelConverter();
-        List<LogbookEntry> entryList = entryDao.getAllLogbookEntries(getAllLogbookEntriesRequest.getUserId());
+        List<LogbookEntry> entryList =
+            entryDao.getAllLogbookEntries(getAllLogbookEntriesRequest.getUserId());
         List<LogbookEntryModel> entryModelList = new ArrayList<>();
         for (LogbookEntry entry : entryList) {
             entryModelList.add(mc.toLogbookEntryModel(entry));

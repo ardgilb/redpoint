@@ -11,6 +11,7 @@ import com.nashss.se.redpoint.activity.GetClimbActivity;
 import com.nashss.se.redpoint.activity.GetCommentsForClimbActivity;
 
 import com.nashss.se.redpoint.activity.UpdateLogbookEntryActivity;
+
 import dagger.Component;
 
 import javax.inject.Singleton;

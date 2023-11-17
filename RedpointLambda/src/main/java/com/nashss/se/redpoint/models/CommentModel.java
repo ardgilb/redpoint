@@ -1,8 +1,6 @@
 package com.nashss.se.redpoint.models;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class CommentModel implements Comparable<CommentModel> {
     private String commentId;
 

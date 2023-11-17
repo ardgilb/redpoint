@@ -1,19 +1,19 @@
 package com.nashss.se.redpoint.dataaccess;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.redpoint.dataaccess.models.Comment;
 import com.nashss.se.redpoint.exceptions.CommentNotFoundException;
 import com.nashss.se.redpoint.metrics.MetricsConstants;
 import com.nashss.se.redpoint.metrics.MetricsPublisher;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 public class CommentDao {
     DynamoDBMapper mapper;

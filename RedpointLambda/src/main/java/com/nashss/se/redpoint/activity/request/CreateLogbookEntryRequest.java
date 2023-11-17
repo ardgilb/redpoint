@@ -3,8 +3,6 @@ package com.nashss.se.redpoint.activity.request;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import java.time.LocalDate;
-
 @JsonDeserialize(builder = CreateLogbookEntryRequest.Builder.class)
 public class CreateLogbookEntryRequest {
     private final String userId;

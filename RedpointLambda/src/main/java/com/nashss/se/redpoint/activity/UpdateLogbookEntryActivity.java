@@ -7,8 +7,6 @@ import com.nashss.se.redpoint.dataaccess.LogbookEntryDao;
 import com.nashss.se.redpoint.dataaccess.models.LogbookEntry;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.UUID;
 
 import javax.inject.Inject;
 

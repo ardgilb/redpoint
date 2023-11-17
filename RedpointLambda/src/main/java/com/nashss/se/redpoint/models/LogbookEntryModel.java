@@ -1,7 +1,6 @@
 package com.nashss.se.redpoint.models;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 public class LogbookEntryModel implements Comparable<LogbookEntryModel> {
     private String userId;
 
