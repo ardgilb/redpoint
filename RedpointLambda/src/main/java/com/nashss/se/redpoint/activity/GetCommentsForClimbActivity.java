@@ -1,18 +1,15 @@
 package com.nashss.se.redpoint.activity;
 
-import com.nashss.se.redpoint.activity.result.GetCommentsForClimbResult;
 import com.nashss.se.redpoint.activity.request.GetCommentsForClimbRequest;
+import com.nashss.se.redpoint.activity.result.GetCommentsForClimbResult;
 import com.nashss.se.redpoint.converters.ModelConverter;
 import com.nashss.se.redpoint.dataaccess.CommentDao;
-import com.nashss.se.redpoint.dataaccess.models.Comment;
 import com.nashss.se.redpoint.models.CommentModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
-
 /**
  * Implementation of the GetCommentActivity for the MySocialNetworks's CreateComment API.
  * <p>
@@ -41,15 +38,12 @@ public class GetCommentsForClimbActivity {
      * @return getAllCommentsResult result object containing the API defined CommentModel
      */
     public GetCommentsForClimbResult handleRequest(final GetCommentsForClimbRequest getAllCommentsRequest) {
-        ModelConverter mc = new ModelConverter();
-        List<Comment> commentList = commentDao.getAllComments(getAllCommentsRequest.getClimbId());
-        List<CommentModel> commentModelList = new ArrayList<>();
-        for (Comment comment : commentList) {
-            commentModelList.add(mc.toCommentModel(comment));
-        }
-        Collections.sort(commentModelList);
+        List<CommentModel> commentList = commentDao.getAllComments(getAllCommentsRequest.getClimbId()).stream()
+            .map(comment -> ModelConverter.toCommentModel(comment))
+            .sorted()
+            .collect(Collectors.toList());
         return GetCommentsForClimbResult.builder()
-            .withCommentList(commentModelList)
+            .withCommentList(commentList)
             .build();
     }
 }

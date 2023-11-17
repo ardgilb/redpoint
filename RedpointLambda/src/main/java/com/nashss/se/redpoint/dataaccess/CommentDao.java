@@ -1,17 +1,19 @@
 package com.nashss.se.redpoint.dataaccess;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.redpoint.dataaccess.models.Comment;
+import com.nashss.se.redpoint.exceptions.CommentNotFoundException;
+import com.nashss.se.redpoint.metrics.MetricsConstants;
 import com.nashss.se.redpoint.metrics.MetricsPublisher;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 public class CommentDao {
     DynamoDBMapper mapper;
@@ -52,7 +54,13 @@ public class CommentDao {
      * @return The Comment object that was retrieved.
      */
     public Comment getComment(Comment comment) {
-        return this.mapper.load(comment);
+        Comment result = this.mapper.load(comment);
+        if (result == null) {
+            metricsPublisher.addCount(MetricsConstants.GETCOMMENT_COMMENTNOTFOUND_COUNT, 1);
+            throw new CommentNotFoundException("Comment not found for provided commentId");
+        }
+        metricsPublisher.addCount(MetricsConstants.GETCOMMENT_COMMENTNOTFOUND_COUNT, 0);
+        return result;
     }
     /**
      * Gets all comments matching the given climbId.

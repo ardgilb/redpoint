@@ -1,16 +1,14 @@
 package com.nashss.se.redpoint.dataaccess.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.nashss.se.redpoint.converters.LocalDateConverter;
-import com.nashss.se.redpoint.converters.ZonedDateTimeConverter;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 @DynamoDBTable(tableName = "logbookEntries")
 public class LogbookEntry {
     @DynamoDBHashKey(attributeName = "userId")
