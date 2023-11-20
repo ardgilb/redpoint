@@ -106,17 +106,23 @@ class ViewClimb extends BindingClass {
 
         commentsContainer.innerHTML = '<h2>Comments</h2>';
         const comments = this.dataStore.get('comments');
+        const currentUser = await this.client.getIdentity();
         if(comments.length != 0){
         comments.forEach(comment => {
             const commentElement = document.createElement('div');
             const date = new Date(comment.timeStamp);
             const dateString = date.toDateString() 
             commentElement.innerHTML = `<strong>${comment.userId}</strong>: ${comment.text} (${dateString})`;
+            
+            const isAuthor = comment.userId === currentUser.email;
+
+        if (isAuthor) {
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
             deleteButton.onclick = () => this.deleteComment(comment.commentId);
 
             commentElement.appendChild(deleteButton);
+        }
             commentsContainer.appendChild(commentElement);
             });
         }

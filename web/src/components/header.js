@@ -41,15 +41,8 @@ export default class Header extends BindingClass {
 
         const lineBreak = document.createElement('br');
 
-        // Create a Home button
-        const homeButton = document.createElement('a');
-        homeButton.classList.add('header_home');
-        homeButton.href = 'index.html';
-        homeButton.innerText = 'Home';
-
         siteTitleContainer.appendChild(redpointText);
         siteTitleContainer.appendChild(lineBreak);
-        siteTitleContainer.appendChild(homeButton);
 
         return siteTitleContainer;
     }
