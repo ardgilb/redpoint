@@ -35,14 +35,12 @@ export default class Header extends BindingClass {
         const siteTitleContainer = document.createElement('div');
         siteTitleContainer.classList.add('site-title-container');
 
-        const redpointText = document.createElement('div');
-        redpointText.classList.add('redpoint-text', 'large-text');
-        redpointText.innerText = 'Redpoint';
+        const homeButton = document.createElement('a');
+        homeButton.classList.add('header_home');
+        homeButton.href = 'index.html';
+        homeButton.innerText = 'Redpoint';
 
-        const lineBreak = document.createElement('br');
-
-        siteTitleContainer.appendChild(redpointText);
-        siteTitleContainer.appendChild(lineBreak);
+        siteTitleContainer.appendChild(homeButton);
 
         return siteTitleContainer;
     }
