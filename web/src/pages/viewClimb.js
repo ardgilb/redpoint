@@ -9,15 +9,16 @@ import DataStore from "../util/DataStore";
 class ViewClimb extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addClimbToPage'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addClimbToPage', 'addCommentsToPage', 'addComment', 'deleteComment'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addClimbToPage);
+        this.dataStore.addChangeListener(this.addCommentsToPage)
         this.header = new Header(this.dataStore);
         console.log("viewclimb constructor");
     }
 
     /**
-     * Once the client is loaded, get the playlist metadata and song list.
+     * Once the client is loaded, get the climb metadata and comment list.
      */
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -25,12 +26,16 @@ class ViewClimb extends BindingClass {
         document.getElementById('climb-name').innerText = "Loading Climb ...";
         const climb = await this.client.getClimb(uuid);
         this.dataStore.set('climb', climb);
+        const comments = await this.client.getAllCommentsForClimb(uuid)
+        this.dataStore.set('comments', comments)
     }
 
     /**
      * Add the header to the page and load the MusicPlaylistClient.
      */
     mount() {
+        document.getElementById('comment-button').addEventListener('click', this.addComment);
+
         this.header.addHeaderToPage();
 
         this.client = new RedpointClient();
@@ -68,31 +73,67 @@ class ViewClimb extends BindingClass {
      * Method to run when the add song playlist submit button is pressed. Call the MusicPlaylistService to add a song to the
      * playlist.
      */
-    async addSong() {
+    async addComment() {
 
         const errorMessageDisplay = document.getElementById('error-message');
-        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.innerText = '';
         errorMessageDisplay.classList.add('hidden');
 
-        const playlist = this.dataStore.get('playlist');
-        if (playlist == null) {
+        const climb = this.dataStore.get('climb');
+        if (climb == null) {
             return;
         }
 
-        document.getElementById('add-song').innerText = 'Adding...';
-        const asin = document.getElementById('album-asin').value;
-        const trackNumber = document.getElementById('track-number').value;
-        const playlistId = playlist.id;
+        document.getElementById('comment').innerText = 'Creating Comment...';
+        const text = document.getElementById('comment').value;
+        const climbId = climb.uuid;
 
-        const songList = await this.client.addSongToPlaylist(playlistId, asin, trackNumber, (error) => {
+        const comment = await this.client.addCommentToClimb(climbId, text, (error) => {
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
         });
+        const comments = await this.client.getAllCommentsForClimb(this.dataStore.get('climb').uuid)
+        this.dataStore.set('comments', comments)
 
-        this.dataStore.set('songs', songList);
+        document.getElementById('comment-button').innerText = 'Create Comment';
+        document.getElementById('comment').value = '';
 
-        document.getElementById('add-song').innerText = 'Add Song';
-        document.getElementById("add-song-form").reset();
+
+    }
+
+    async addCommentsToPage() {
+        const commentsContainer = document.getElementById('comments-container');
+
+        commentsContainer.innerHTML = '<h2>Comments</h2>';
+        const comments = this.dataStore.get('comments');
+        if(comments.length != 0){
+        comments.forEach(comment => {
+            const commentElement = document.createElement('div');
+            const date = new Date(comment.timeStamp);
+            const dateString = date.toDateString() 
+            commentElement.innerHTML = `<strong>${comment.userId}</strong>: ${comment.text} (${dateString})`;
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => this.deleteComment(comment.commentId);
+
+            commentElement.appendChild(deleteButton);
+            commentsContainer.appendChild(commentElement);
+            });
+        }
+        else{
+        const commentElement = document.createElement('div');
+        commentElement.innerHTML = `<strong>No Comments</strong>`;
+        commentsContainer.appendChild(commentElement);
+        }
+    }
+    async deleteComment(commentId) {
+            const errorMessageDisplay = document.getElementById('error-message');
+            errorMessageDisplay.innerText = '';
+            errorMessageDisplay.classList.add('hidden');
+
+        await this.client.deleteComment(commentId);
+        const comments = await this.client.getAllCommentsForClimb(this.dataStore.get('climb').uuid)
+        this.dataStore.set('comments', comments)
     }
 }
 

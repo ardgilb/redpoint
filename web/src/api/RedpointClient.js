@@ -15,7 +15,7 @@ export default class RedpointClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'search', 'getArea', 'getClimb', 'createPlaylist'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'search', 'getArea', 'getClimb', 'getAllCommentsForClimb'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -132,24 +132,46 @@ export default class RedpointClient extends BindingClass {
      * @param trackNumber The track number of the song on the album.
      * @returns The list of songs on a playlist.
      */
-    async addSongToPlaylist(id, asin, trackNumber, errorCallback) {
+    async addCommentToClimb(climbId, text, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can add a song to a playlist.");
-            const response = await this.axiosClient.post(`playlists/${id}/songs`, {
-                id: id,
-                asin: asin,
-                trackNumber: trackNumber
+            const token = await this.getTokenOrThrow("Only authenticated users can create comments.");
+            const response = await this.axiosClient.post(`comments`, {
+                climbId: climbId,
+                text: text
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            return response.data.songList;
+            return response.data.comment;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
+    async getAllCommentsForClimb(climbId, errorCallback) {
+            try {
+                const response = await this.axiosClient.get(`comments/${climbId}`, {
+                    climbId: climbId
+                });
+                return response.data.comment;
+            } catch (error) {
+                this.handleError(error, errorCallback)
+            }
+        }
+    async deleteComment(commentId, errorCallback){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete comments.");
+            const response = await this.axiosClient.delete(`comments/${commentId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
     /**
      * Search for a song.
      * @param criteria A string containing search criteria to pass to the API.

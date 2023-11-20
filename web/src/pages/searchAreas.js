@@ -112,15 +112,13 @@ class SearchAreas extends BindingClass {
             return '<h4>No results found</h4>';
         }
 
-        let html = '<table><tr><th>Name</th><th>Song Count</th><th>Tags</th></tr>';
+        let html = '<table><tr><th>Area Name</th></tr>';
         for (const res of searchResults) {
             html += `
             <tr>
                 <td>
                     <a href="area.html?uuid=${res.uuid}">${res.areaName}</a>
                 </td>
-                <td>${res.songCount}</td>
-                <td>${res.tags?.join(', ')}</td>
             </tr>`;
         }
         html += '</table>';

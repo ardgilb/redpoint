@@ -310,7 +310,7 @@ Resources:
         Redpoint:
           Type: Api
           Properties:
-            Path: /comments
+            Path: /comments/{climbId}
             Method: delete
   GetCommentsForClimbLambda:
     Type: AWS::Serverless::Function
