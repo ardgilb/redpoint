@@ -1,7 +1,6 @@
 package com.nashss.se.redpoint.lambda;
 
 import com.nashss.se.redpoint.activity.request.DeleteCommentRequest;
-import com.nashss.se.redpoint.activity.request.GetCommentsForClimbRequest;
 import com.nashss.se.redpoint.activity.result.DeleteCommentResult;
 
 import com.amazonaws.services.lambda.runtime.Context;
