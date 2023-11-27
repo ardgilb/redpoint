@@ -4,8 +4,11 @@ import com.nashss.se.redpoint.activity.request.GetAreaRequest;
 import com.nashss.se.redpoint.activity.result.GetAreaResult;
 import com.nashss.se.redpoint.dataaccess.AreaDao;
 import com.nashss.se.redpoint.dataaccess.models.Area;
+import com.nashss.se.redpoint.dataaccess.models.Climb;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.List;
 
 public class GetAreaActivity {
     private final AreaDao areaDao;
@@ -30,6 +33,11 @@ public class GetAreaActivity {
      */
     public GetAreaResult handleRequest(GetAreaRequest request) {
         Area area = areaDao.getArea(request.getUuid());
+        if (!area.getClimbs().isEmpty()) {
+            List<Climb> climbList = area.getClimbs();
+            Collections.sort(climbList);
+            area.setClimbs(climbList);
+        }
         return GetAreaResult.builder()
             .withArea(area)
             .build();

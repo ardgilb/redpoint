@@ -32,7 +32,6 @@ class ViewArea extends BindingClass {
      */
     mount() {
         this.header.addHeaderToPage();
-
         this.client = new RedpointClient();
         this.clientLoaded();
     }
@@ -42,6 +41,7 @@ class ViewArea extends BindingClass {
      */
     addAreaToPage() {
         const area = this.dataStore.get('area');
+        document.getElementById("title").innerText = area.areaName;
         if (area == null) {
             return;
         }
@@ -64,7 +64,7 @@ class ViewArea extends BindingClass {
                     document.getElementById('children').innerHTML = areahtml;
         }
         if(area.climbs.length != 0) {
-            let climbhtml = '<table><tr><th>Climbs</th><th>Rating</th></tr>';
+            let climbhtml = '<table><tr><th>Climbs (Left to Right)</th><th>Rating</th></tr>';
                                     for (const climb of area.climbs) {
                                         climbhtml += `
                                         <tr>

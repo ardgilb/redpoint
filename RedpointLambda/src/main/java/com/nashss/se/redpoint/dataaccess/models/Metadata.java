@@ -5,4 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Metadata {
     @JsonProperty("leftRightIndex")
     private String leftRightIndex;
+
+    public String getLeftRightIndex() {
+        return leftRightIndex;
+    }
 }

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents a record in the climbs table.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Climb {
+public class Climb implements Comparable<Climb>{
     @JsonProperty("name")
     private String name;
     @JsonProperty("uuid")
@@ -56,5 +56,10 @@ public class Climb {
 
     public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
+    }
+
+    @Override
+    public int compareTo(Climb o) {
+        return this.metadata.getLeftRightIndex().compareTo(o.metadata.getLeftRightIndex());
     }
 }

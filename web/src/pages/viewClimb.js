@@ -53,7 +53,7 @@ class ViewClimb extends BindingClass {
         if (climb == null) {
             return;
         }
-
+        document.getElementById("title").innerText = climb.name;
         document.getElementById('climb-name').innerText = climb.name + ", " + climb.yds;
         if(climb.content.description != "" && climb.content.description != null){
         document.getElementById('desc').innerText = "Description";

@@ -47,11 +47,11 @@ class Logbook extends BindingClass {
         const userId = this.dataStore.get('userId');
         try {
             const logbookEntries = await this.client.getUserLogbook(userId);
-
+    
             if (logbookEntries.length > 0) {
-                logbookEntries.forEach(entry => {
-                    this.renderLogbookEntry(entry);
-                });
+                for (const entry of logbookEntries) {
+                    await this.renderLogbookEntry(entry);
+                }
             } else {
                 // Display a message if the logbook is empty
                 const emptyMessage = document.createElement('li');
@@ -84,6 +84,7 @@ class Logbook extends BindingClass {
 
         
         logbookList.appendChild(listItem);
+
         if (isLoggedIn) {
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
@@ -127,7 +128,7 @@ async updateAscent(entry) {
     const ascentNotes = document.getElementById('ascentNotes').value;
     const climbId = entry.climbId;
 
-    const result = await this.client.updateAscent(climbId, ascentDate, ascentNotes)
+    const result = awaitthis.client.updateAscent(climbId, ascentDate, ascentNotes)
 
     // Close the modal after updating
     const modal = document.getElementById('updateAscentModal');

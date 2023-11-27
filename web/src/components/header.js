@@ -10,7 +10,7 @@ export default class Header extends BindingClass {
 
         const methodsToBind = [
             'addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader',
-            'createLoginButton', 'createLoginButton', 'createLogoutButton'
+            'createLoginButton', 'createLogoutButton', 'createMyLogbookButton'
         ];
         this.bindClassMethods(methodsToBind, this);
 
@@ -42,6 +42,7 @@ export default class Header extends BindingClass {
 
         siteTitleContainer.appendChild(homeButton);
 
+
         return siteTitleContainer;
     }
 
@@ -53,6 +54,11 @@ export default class Header extends BindingClass {
             ? this.createLogoutButton(currentUser)
             : this.createLoginButton();
 
+        const logbookButton = this.createMyLogbookButton(currentUser);
+
+        logbookButton.style.marginRight = '10px';
+
+        userInfo.appendChild(logbookButton);
         userInfo.appendChild(childContent);
 
         return userInfo;
@@ -64,6 +70,15 @@ export default class Header extends BindingClass {
 
     createLogoutButton(currentUser) {
         return this.createButton(`Logout: ${currentUser.name}`, this.client.logout);
+    }
+
+    createMyLogbookButton(currentUser) {
+        const logbookButton = document.createElement('a');
+        logbookButton.classList.add('button');
+        logbookButton.href = `logbook.html?userId=${currentUser.email}`;
+        logbookButton.innerText = 'My Logbook';
+
+        return logbookButton;
     }
 
     createButton(text, clickHandler) {
