@@ -148,6 +148,23 @@ export default class RedpointClient extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
+    async addLogbookEntry(climbId, date, notes, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can log ascents.");
+            const response = await this.axiosClient.post(`entries`, {
+                climbId: climbId,
+                date: date,
+                notes: notes
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.logbookEntry;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
 
     async getAllCommentsForClimb(climbId, errorCallback) {
             try {

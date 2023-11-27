@@ -4,7 +4,7 @@ import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
 
 /**
- * Logic needed for the view playlist page of the website.
+ * Logic needed for the view climb page of the website.
  */
 class ViewClimb extends BindingClass {
     constructor() {
@@ -31,10 +31,13 @@ class ViewClimb extends BindingClass {
     }
 
     /**
-     * Add the header to the page and load the MusicPlaylistClient.
+     * Add the header to the page and load the RedpointClient.
      */
     mount() {
         document.getElementById('comment-button').addEventListener('click', this.addComment);
+        document.getElementById('log').addEventListener('click', this.showLogAscentModal.bind(this));
+        document.getElementById('saveAscentBtn').addEventListener('click', this.saveAscent.bind(this));
+
 
         this.header.addHeaderToPage();
 
@@ -43,7 +46,7 @@ class ViewClimb extends BindingClass {
     }
 
     /**
-     * When the playlist is updated in the datastore, update the playlist metadata on the page.
+     * When the climb is updated in the datastore, update the climb metadata on the page.
      */
     addClimbToPage() {
         const climb = this.dataStore.get('climb');
@@ -70,8 +73,8 @@ class ViewClimb extends BindingClass {
 
 
     /**
-     * Method to run when the add song playlist submit button is pressed. Call the MusicPlaylistService to add a song to the
-     * playlist.
+     * Method to run when the add comment submit button is pressed. Call the RedpointClient to add a comment to the
+     * climb.
      */
     async addComment() {
 
@@ -100,7 +103,9 @@ class ViewClimb extends BindingClass {
 
 
     }
-
+    /**
+     * Method to run when retreiving all comments for a given climb.
+     */
     async addCommentsToPage() {
         const commentsContainer = document.getElementById('comments-container');
 
@@ -132,6 +137,9 @@ class ViewClimb extends BindingClass {
         commentsContainer.appendChild(commentElement);
         }
     }
+    /**
+     * Method to run when the delete comment button is pressed.
+     */
     async deleteComment(commentId) {
             const errorMessageDisplay = document.getElementById('error-message');
             errorMessageDisplay.innerText = '';
@@ -141,6 +149,62 @@ class ViewClimb extends BindingClass {
         const comments = await this.client.getAllCommentsForClimb(this.dataStore.get('climb').uuid)
         this.dataStore.set('comments', comments)
     }
+
+// Add a new method to handle the modal display
+    showLogAscentModal() {
+        const modal = document.getElementById('logAscentModal');
+        modal.style.display = 'block';
+
+     // Add a click event listener to the window to close the modal if clicked outside of it
+        window.onclick = function(event) {
+            if (event.target === modal) {
+            modal.style.display = 'none';
+            }
+        }
+
+    // Add a click event listener to the close button to close the modal
+        document.getElementById('closeModal').onclick = function() {
+            modal.style.display = 'none';
+        }
+}
+
+async saveAscent() {
+    const climb = this.dataStore.get('climb');
+
+    const ascentDate = document.getElementById('ascentDate').value;
+    const ascentNotes = document.getElementById('ascentNotes').value;
+    const climbId = climb.uuid;
+
+    try {
+        const ascent = await this.client.addLogbookEntry(climbId, ascentDate, ascentNotes, (error) => {
+            errorMessageDisplay.innerText = `Error: ${error.message}`;
+            errorMessageDisplay.classList.remove('hidden');
+        });
+
+        // Display success message
+        this.showSuccessMessage("Ascent logged successfully!");
+
+        // Close the modal after saving
+        const modal = document.getElementById('logAscentModal');
+        modal.style.display = 'none';
+    } catch (error) {
+        // Handle other errors if needed
+        console.error(error);
+    }
+}
+
+showSuccessMessage(message) {
+    // Display the success message where you see fit in your UI
+    const successMessageElement = document.getElementById('success-message');
+    successMessageElement.innerText = message;
+    successMessageElement.classList.remove('hidden');
+
+    // Optionally, hide the success message after a certain time
+    setTimeout(() => {
+        successMessageElement.classList.add('hidden');
+    }, 5000); // Hide after 5 seconds (adjust as needed)
+}
+
 }
 
 /**

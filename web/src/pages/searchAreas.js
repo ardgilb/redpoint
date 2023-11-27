@@ -23,7 +23,7 @@ const EMPTY_DATASTORE_STATE = {
 
 
 /**
- * Logic needed for the view playlist page of the website.
+ * Logic needed for the view area page of the website.
  */
 class SearchAreas extends BindingClass {
     constructor() {
@@ -39,7 +39,7 @@ class SearchAreas extends BindingClass {
     }
 
     /**
-     * Add the header to the page and load the MusicPlaylistClient.
+     * Add the header to the page and load the RedpointClient.
      */
     mount() {
         // Wire up the form's 'submit' event and the button's 'click' event to the search method.

@@ -16,7 +16,7 @@
     <div id="location"></div>
     <h3 id="prot"></h3>
     <div id="protection"></div>
-    <ol href="#" class="button" id="log">Log Ascent</ol>
+    <button href="#" class="button" id="log">Log Ascent</button>
 </div>
     <div class = "card" id="comments-container">
     <p class="hidden error" id="delete-error-message"> </p>
@@ -24,8 +24,21 @@
 <div class = "card" id="buttons">
     <p class="hidden error" id="error-message"> </p>
     <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
-    <ol href="#" class="button" id="comment-button">Create Comment</ol>
+    <button href="#" class="button" id="comment-button">Create Comment</button>
 </div>
+
+<div id="logAscentModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <label for="ascentDate">Ascent Date:</label>
+      <input type="date" id="ascentDate">
+      <label for="ascentNotes">Ascent Notes:</label>
+      <textarea id="ascentNotes" rows="4" cols="50"></textarea>
+      <button id="saveAscentBtn">Save Ascent</button>
+    </div>
+  </div>
+
+  <div id="success-message" class="hidden success-message"></div>
 </body>
 
 </html>
