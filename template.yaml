@@ -386,7 +386,7 @@ Resources:
         Redpoint:
           Type: Api
           Properties:
-            Path: /entries
+            Path: /entries/{userId}
             Method: delete
   GetAllLogbookEntriesForUserLambda:
     Type: AWS::Serverless::Function

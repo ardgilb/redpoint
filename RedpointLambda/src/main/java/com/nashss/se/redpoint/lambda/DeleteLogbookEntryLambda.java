@@ -1,5 +1,6 @@
 package com.nashss.se.redpoint.lambda;
 
+import com.nashss.se.redpoint.activity.request.DeleteCommentRequest;
 import com.nashss.se.redpoint.activity.request.DeleteLogbookEntryRequest;
 import com.nashss.se.redpoint.activity.result.DeleteLogbookEntryResult;
 
@@ -12,7 +13,10 @@ public class DeleteLogbookEntryLambda
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<DeleteLogbookEntryRequest> input, Context context) {
         return super.runActivity(
             () -> {
-                DeleteLogbookEntryRequest unauthenticatedRequest = input.fromBody(DeleteLogbookEntryRequest.class);
+                DeleteLogbookEntryRequest unauthenticatedRequest = input.fromPathAndQuery((path, query) ->
+                    DeleteLogbookEntryRequest.builder()
+                        .withClimbId(path.get("userId"))
+                        .build());
                 return input.fromUserClaims(claims ->
                     DeleteLogbookEntryRequest.builder()
                         .withUserId(claims.get("email"))

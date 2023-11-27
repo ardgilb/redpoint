@@ -28,6 +28,7 @@ module.exports = {
     viewClimb: path.resolve(__dirname, 'src', 'pages', 'viewClimb.js'),
     searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
     searchAreas: path.resolve(__dirname, 'src', 'pages', 'searchAreas.js'),
+    logbook: path.resolve(__dirname, 'src', 'pages', 'logbook.js'),
     test: path.resolve(__dirname, 'src', 'pages', 'test.js'),
   },
   output: {

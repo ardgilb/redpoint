@@ -9,7 +9,7 @@ import DataStore from "../util/DataStore";
 class ViewClimb extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addClimbToPage', 'addCommentsToPage', 'addComment', 'deleteComment'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addClimbToPage', 'addCommentsToPage', 'addComment', 'deleteComment', ], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addClimbToPage);
         this.dataStore.addChangeListener(this.addCommentsToPage)

@@ -189,6 +189,46 @@ export default class RedpointClient extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
+    async getUserLogbook(userId, errorCallback) {
+        try {
+            const response = await this.axiosClient.get(`entries/${userId}`, {
+                userId: userId
+            });
+            return response.data.logbookEntry;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+    async deleteEntry(climbId, errorCallback){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete logbook entries.");
+            const response = await this.axiosClient.delete(`entries/${climbId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+    async updateAscent(climbId, date, notes, errorCallback){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete logbook entries.");
+            const response = await this.axiosClient.put(`entries/`,{
+                climbId: climbId,
+                date: date,
+                notes: notes
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
     /**
      * Search for a song.
      * @param criteria A string containing search criteria to pass to the API.
