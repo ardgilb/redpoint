@@ -3,7 +3,7 @@ import BindingClass from "../util/bindingClass";
 import Authenticator from "./authenticator";
 
 /**
- * Client to call the MusicPlaylistService.
+ * Client to call the RedpointService.
  *
  * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
  * which we could avoid using inheritance or Mixins.
@@ -15,7 +15,7 @@ export default class RedpointClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'search', 'getArea', 'getClimb', 'createPlaylist'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'search', 'getArea', 'getClimb', 'getAllCommentsForClimb'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -102,58 +102,113 @@ export default class RedpointClient extends BindingClass {
         }
 
     /**
-     * Create a new playlist owned by the current user.
-     * @param name The name of the playlist to create.
-     * @param tags Metadata tags to associate with a playlist.
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The playlist that has been created.
-     */
-    async createPlaylist(name, tags, errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("Only authenticated users can create playlists.");
-            const response = await this.axiosClient.post(`playlists`, {
-                name: name,
-                tags: tags
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            return response.data.playlist;
-        } catch (error) {
-            this.handleError(error, errorCallback)
-        }
-    }
-
-    /**
      * Add a song to a playlist.
      * @param id The id of the playlist to add a song to.
      * @param asin The asin that uniquely identifies the album.
      * @param trackNumber The track number of the song on the album.
      * @returns The list of songs on a playlist.
      */
-    async addSongToPlaylist(id, asin, trackNumber, errorCallback) {
+    async addCommentToClimb(climbId, text, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can add a song to a playlist.");
-            const response = await this.axiosClient.post(`playlists/${id}/songs`, {
-                id: id,
-                asin: asin,
-                trackNumber: trackNumber
+            const token = await this.getTokenOrThrow("Only authenticated users can create comments.");
+            const response = await this.axiosClient.post(`comments`, {
+                climbId: climbId,
+                text: text
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            return response.data.songList;
+            return response.data.comment;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+    async addLogbookEntry(climbId, date, notes, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can log ascents.");
+            const response = await this.axiosClient.post(`entries`, {
+                climbId: climbId,
+                date: date,
+                notes: notes
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.logbookEntry;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
+    async getAllCommentsForClimb(climbId, errorCallback) {
+            try {
+                const response = await this.axiosClient.get(`comments/${climbId}`, {
+                    climbId: climbId
+                });
+                return response.data.comment;
+            } catch (error) {
+                this.handleError(error, errorCallback)
+            }
+        }
+    async deleteComment(commentId, errorCallback){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete comments.");
+            const response = await this.axiosClient.delete(`comments/${commentId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+    async getUserLogbook(userId, errorCallback) {
+        try {
+            const response = await this.axiosClient.get(`entries/${userId}`, {
+                userId: userId
+            });
+            return response.data.logbookEntry;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+    async deleteEntry(climbId, errorCallback){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete logbook entries.");
+            const response = await this.axiosClient.delete(`entries/${climbId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+    async updateAscent(climbId, date, notes, errorCallback){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete logbook entries.");
+            const response = await this.axiosClient.put(`entries/`,{
+                climbId: climbId,
+                date: date,
+                notes: notes
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
     /**
      * Search for a song.
      * @param criteria A string containing search criteria to pass to the API.
-     * @returns The playlists that match the search criteria.
+     * @returns The areas that match the search criteria.
      */
     async search(criteria, errorCallback) {
         try {

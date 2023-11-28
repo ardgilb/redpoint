@@ -12,7 +12,10 @@ public class DeleteCommentLambda
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<DeleteCommentRequest> input, Context context) {
         return super.runActivity(
             () -> {
-                DeleteCommentRequest unauthenticatedRequest = input.fromBody(DeleteCommentRequest.class);
+                DeleteCommentRequest unauthenticatedRequest = input.fromPathAndQuery((path, query) ->
+                    DeleteCommentRequest.builder()
+                        .withCommentId(path.get("climbId"))
+                        .build());
                 return input.fromUserClaims(claims ->
                     DeleteCommentRequest.builder()
                         .withUserId(claims.get("email"))

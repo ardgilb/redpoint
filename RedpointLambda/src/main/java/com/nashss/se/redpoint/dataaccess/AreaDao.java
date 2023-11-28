@@ -43,7 +43,7 @@ public class AreaDao {
     public Area getArea(String uuid) {
         String body = "{\"query\":\"query { area(uuid: \\\"" +
             uuid + "\\\") { areaName content { description } metadata{ lat lng }" +
-            "climbs { name uuid yds } children { areaName uuid } } }\"}";
+            "climbs { name uuid yds metadata{ leftRightIndex } } children { areaName uuid } } }\"}";
 
         HttpRequest request = HttpUtils.httpRequestBuilder(body);
         HttpResponse<String> response;

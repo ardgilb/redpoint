@@ -23,7 +23,7 @@ const EMPTY_DATASTORE_STATE = {
 
 
 /**
- * Logic needed for the view playlist page of the website.
+ * Logic needed for the view area page of the website.
  */
 class SearchAreas extends BindingClass {
     constructor() {
@@ -39,11 +39,11 @@ class SearchAreas extends BindingClass {
     }
 
     /**
-     * Add the header to the page and load the MusicPlaylistClient.
+     * Add the header to the page and load the RedpointClient.
      */
     mount() {
         // Wire up the form's 'submit' event and the button's 'click' event to the search method.
-        document.getElementById('search-playlists-form').addEventListener('submit', this.search);
+        document.getElementById('search-areas-form').addEventListener('submit', this.search);
         document.getElementById('search-btn').addEventListener('click', this.search);
 
         this.header.addHeaderToPage();
@@ -112,15 +112,13 @@ class SearchAreas extends BindingClass {
             return '<h4>No results found</h4>';
         }
 
-        let html = '<table><tr><th>Name</th><th>Song Count</th><th>Tags</th></tr>';
+        let html = '<table><tr><th>Area Name</th></tr>';
         for (const res of searchResults) {
             html += `
             <tr>
                 <td>
                     <a href="area.html?uuid=${res.uuid}">${res.areaName}</a>
                 </td>
-                <td>${res.songCount}</td>
-                <td>${res.tags?.join(', ')}</td>
             </tr>`;
         }
         html += '</table>';

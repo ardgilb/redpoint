@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -27,6 +29,7 @@ public class GetAreaActivityTest {
         Area area = new Area();
         area.setAreaName("name");
         area.setUuid("uuid");
+        area.setClimbs(new ArrayList<>());
         when(areaDao.getArea("uuid")).thenReturn(area);
 
         GetAreaRequest request = GetAreaRequest.builder()
