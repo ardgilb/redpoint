@@ -54,11 +54,16 @@ export default class Header extends BindingClass {
             ? this.createLogoutButton(currentUser)
             : this.createLoginButton();
 
-        const logbookButton = this.createMyLogbookButton(currentUser);
+            let logbookButton; // Declare logbookButton variable
 
-        logbookButton.style.marginRight = '10px';
-
-        userInfo.appendChild(logbookButton);
+            if (currentUser) {
+                logbookButton = this.createMyLogbookButton(currentUser);
+                logbookButton.style.marginRight = '10px';
+            }
+                        
+            if (logbookButton) {
+                userInfo.appendChild(logbookButton);
+            }
         userInfo.appendChild(childContent);
 
         return userInfo;

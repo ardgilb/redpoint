@@ -204,14 +204,16 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/comments"
+                Resource:
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/comments"
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/comments/index/ClimbIdIndex"
         - PolicyName: 'AccessAscentsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/ascents"
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/logbookEntries"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
@@ -236,6 +238,8 @@ Resources:
           Properties:
             Path: /areas/{query}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
   GetAreaLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -255,6 +259,8 @@ Resources:
           Properties:
             Path: /area/{uuid}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
   GetClimbLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -274,6 +280,8 @@ Resources:
           Properties:
             Path: /climb/{uuid}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
   CreateCommentLambda:
       Type: AWS::Serverless::Function
       Properties:
@@ -331,6 +339,8 @@ Resources:
           Properties:
             Path: /comments/{climbId}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
   CreateLogbookEntryLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -407,6 +417,8 @@ Resources:
           Properties:
             Path: /entries/{userId}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
