@@ -5,6 +5,7 @@ import com.nashss.se.redpoint.activity.result.GetAllAreasResult;
 import com.nashss.se.redpoint.dataaccess.AreaDao;
 import com.nashss.se.redpoint.dataaccess.models.Area;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +33,19 @@ public class GetAllAreasActivity {
      * @return GetAllAreasResult result object containing a list of the API defined {@link Area}
      */
     public GetAllAreasResult handleRequest(GetAllAreasRequest request) {
-        List<Area> areas = areaDao.getAllAreasFromQuery(request.getQuery());
+        List<Area> areas = areaDao.getAllAreasFromQuery(urlDecode(request.getQuery()));
         if (areas.isEmpty()) {
             areas = new ArrayList<>();
         }
         return GetAllAreasResult.builder()
             .withAreaList(areas)
             .build();
+    }
+    private String urlDecode(String input) {
+        try {
+            return java.net.URLDecoder.decode(input, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return input;
+        }
     }
 }

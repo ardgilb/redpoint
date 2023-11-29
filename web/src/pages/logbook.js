@@ -128,7 +128,7 @@ async updateAscent(entry) {
     const ascentNotes = document.getElementById('ascentNotes').value;
     const climbId = entry.climbId;
 
-    const result = awaitthis.client.updateAscent(climbId, ascentDate, ascentNotes)
+    const result = await this.client.updateAscent(climbId, ascentDate, ascentNotes)
 
     // Close the modal after updating
     const modal = document.getElementById('updateAscentModal');
