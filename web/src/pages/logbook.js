@@ -13,6 +13,7 @@ class Logbook extends BindingClass {
     }
 
     async clientLoaded() {
+        document.getElementById('logbook-header').innerText = "Loading...";
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('userId');
         this.dataStore.set('userId', userId)
@@ -34,15 +35,8 @@ class Logbook extends BindingClass {
      * Load and render the user's logbook entries.
      */
     async loadLogbook() {
-        if(this.dataStore.get('loggedIn')){
-            document.getElementById('logbook-header').innerText = "Your Logbook"
-
-        }
-        else{
-            document.getElementById('logbook-header').innerText = this.dataStore.get('userId') + "'s Logbook"
-        }
         const logbookList = document.getElementById('logbook-list');
-        logbookList.innerHTML = ''; // Clear existing entries
+        logbookList.innerHTML = ''; 
 
         const userId = this.dataStore.get('userId');
         try {
@@ -53,14 +47,19 @@ class Logbook extends BindingClass {
                     await this.renderLogbookEntry(entry);
                 }
             } else {
-                // Display a message if the logbook is empty
                 const emptyMessage = document.createElement('li');
                 emptyMessage.textContent = 'No logged ascents yet.';
                 logbookList.appendChild(emptyMessage);
             }
         } catch (error) {
             console.error('Error loading logbook:', error);
-            // Handle error, display message to the user, etc.
+        }
+        if(this.dataStore.get('loggedIn')){
+            document.getElementById('logbook-header').innerText = "Your Logbook"
+
+        }
+        else{
+            document.getElementById('logbook-header').innerText = this.dataStore.get('userId') + "'s Logbook"
         }
     }
 
@@ -72,75 +71,108 @@ class Logbook extends BindingClass {
         const logbookList = document.getElementById('logbook-list');
         const climb = await this.client.getClimb(entry.climbId);
         const currentUser = await this.client.getIdentity();
+        const date = new Date(entry.date);
         const listItem = document.createElement('li');
+        
         listItem.innerHTML = `
             <strong>Climb Name:</strong> <a href="climb.html?uuid=${climb.uuid}">${climb.name}, ${climb.yds}</a>
             <br>
-            <strong>Date:</strong> ${entry.date}
+            <strong>Date:</strong> ${date.toDateString()}
             <br>
             <strong>Notes:</strong> ${entry.notes}
         `;
-        const isLoggedIn = entry.userId === currentUser.email;
-
         
-        logbookList.appendChild(listItem);
-
+        const isLoggedIn = entry.userId === currentUser.email;
+    
         if (isLoggedIn) {
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.onclick = () => this.deleteEntry(entry.climbId);
-            const updateButton = document.createElement('button');
-            updateButton.textContent = 'Update';
-            updateButton.onclick = () => this.showUpdateAscentModal(entry);
+            const deleteButton = this.createStyledButton('Delete', 'var(--tertiary-color)');
+            deleteButton.onclick = () => {
+                deleteButton.textContent = 'Deleting...';
+                this.deleteEntry(entry.climbId)
+                .then(() => {
+                    deleteButton.textContent = 'Delete';
+                })
+                .catch(error => {
+                    console.error('Error deleting entry:', error);
+                    deleteButton.textContent = 'Delete';
+                });
+            }
+            const updateButton = this.createStyledButton('Update', 'var(--tertiary-color)');
+            updateButton.onclick = () => {
+                updateButton.textContent = 'Updating...';
+                this.showUpdateAscentModal(entry)
+                .then(() => {
+                    updateButton.textContent = 'Update';
+                })
+                .catch(error => {
+                    console.error('Error updating entry:', error);
+                    updateButton.textContent = 'Update';
+                });
+            }
+    
+            const space = document.createElement('span');
+            space.style.marginRight = '10px';
+            
+            listItem.appendChild(document.createElement('br')); 
+            listItem.appendChild(deleteButton);
+            listItem.appendChild(space);
+            listItem.appendChild(updateButton);
 
-            logbookList.appendChild(deleteButton);
-            logbookList.appendChild(updateButton);
         }
+    
+        logbookList.appendChild(listItem);
     }
+    
+    createStyledButton(text, backgroundColor) {
+        const button = document.createElement('button');
+        button.textContent = text;
+        button.style.backgroundColor = backgroundColor;
+        button.style.color = 'var(--secondary-color)';
+        button.style.border = 'none';
+        button.style.padding = '5px 7px';
+        button.style.marginTop = '5px';
+    
+        return button;
+    }
+    
     async deleteEntry(climbId) {
-
         await this.client.deleteEntry(climbId);
-        this.loadLogbook();
+        await this.loadLogbook();
 }
 showUpdateAscentModal(entry) {
     const modal = document.getElementById('updateAscentModal');
     const ascentDateInput = document.getElementById('ascentDate');
     const ascentNotesInput = document.getElementById('ascentNotes');
 
-    // Populate the modal with existing entry data
     ascentDateInput.value = entry.date;
     ascentNotesInput.value = entry.notes;
 
     modal.style.display = 'block';
 
-    // Add a click event listener to the window to close the modal if clicked outside of it
     window.onclick = function(event) {
         if (event.target === modal) {
             modal.style.display = 'none';
         }
     }
 
-    // Add a click event listener to the "Update Ascent" button to update the ascent
     document.getElementById('updateAscentBtn').onclick = () => this.updateAscent(entry);
 }
 async updateAscent(entry) {
+    document.getElementById('updateAscentBtn').innerHTML = "Updating..."
     const ascentDate = document.getElementById('ascentDate').value;
     const ascentNotes = document.getElementById('ascentNotes').value;
     const climbId = entry.climbId;
 
     const result = await this.client.updateAscent(climbId, ascentDate, ascentNotes)
 
-    // Close the modal after updating
     const modal = document.getElementById('updateAscentModal');
     modal.style.display = 'none';
 
-    // Reload the logbook to reflect the changes
     this.loadLogbook();
 }
 
 }
 
-// Main method to create an instance of the Logbook class and mount the page.
 const main = async () => {
     const logbook = new Logbook();
     logbook.mount();

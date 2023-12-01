@@ -18,14 +18,14 @@
     align-items: center;
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    padding: 10px 20px; /* Increased padding for a more comfortable look */
+    padding: 10px 20px; 
 }
 
 .button {
     background-color: var(--tertiary-color);
     border: none;
     color: var(--secondary-color);
-    padding: 10px 15px; /* Increased padding for a more comfortable look */
+    padding: 10px 15px; 
     text-align: center;
     font-weight: bold;
     text-decoration: none;
@@ -36,6 +36,12 @@
     display: flex;
     justify-content: space-between;
 }
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
 
 .header_home {
     font-size: 36px;
@@ -44,12 +50,35 @@
     text-decoration: none;
     color: var(--secondary-color);
 }
+.card-container {
+    display: flex;
+    justify-content: flex-start;;
+}
 
 .card {
     color: var(--primary-color);
     background-color: var(--secondary-color);
     margin: 20px;
-    padding: 20px; /* Increased padding for a more comfortable look */
+    padding: 20px;
+    height: auto;
+    width : 95%;
+}
+.weather-card {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    margin: 20px;
+    padding: 20px;
+    height: auto;
+}
+
+.weather-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.weather-item {
+    border-bottom: 1px solid #ccc;
+    padding: 1em 0;
 }
 
 .modal {
@@ -67,8 +96,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fefefe;
-    padding: 30px; /* Increased padding for a more comfortable look */
+    background-color: var(--secondary-color);
+    padding: 30px; 
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
@@ -91,7 +120,7 @@
 .error {
     color: var(--error-color);
     border: 1px solid var(--error-color);
-    padding: 15px; /* Increased padding for a more comfortable look */
+    padding: 15px; 
 }
 
 .validated-field:invalid {
@@ -109,11 +138,12 @@
 .card-content .form-field {
     display: flex;
     flex-direction: column;
+    
 }
 .success-message {
     background-color: #4CAF50;
     color: white;
-    padding: 20px; /* Increased padding for a more comfortable look */
+    padding: 20px; 
     text-align: center;
     position: fixed;
     top: 0;
@@ -141,5 +171,5 @@ a {
 }
 
 li {
-    margin-bottom: 15px; /* Increased margin for a more comfortable look */
+    margin-bottom: 15px; 
 }

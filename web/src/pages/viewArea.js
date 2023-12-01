@@ -2,6 +2,7 @@ import RedpointClient from '../api/RedpointClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+import WeatherClient from "../api/WeatherClient";
 
 /**
  * Logic needed for the view area page of the website.
@@ -9,9 +10,10 @@ import DataStore from "../util/DataStore";
 class ViewArea extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addAreaToPage'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addAreaToPage', 'addWeatherToArea'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addAreaToPage);
+        this.dataStore.addChangeListener(this.addWeatherToArea);
         this.header = new Header(this.dataStore);
         console.log("viewarea constructor");
     }
@@ -23,8 +25,11 @@ class ViewArea extends BindingClass {
         const urlParams = new URLSearchParams(window.location.search);
         const uuid = urlParams.get('uuid');
         document.getElementById('area-name').innerText = "Loading Area ...";
+        document.getElementById('weather-title').innerText = "Loading Weather...";
         const area = await this.client.getArea(uuid);
         this.dataStore.set('area', area);
+        const weatherData = await this.weatherClient.getWeather(parseFloat(area.metadata.lat).toFixed(4), parseFloat(area.metadata.lng).toFixed(4));
+        this.dataStore.set('weather', weatherData);
     }
 
     /**
@@ -33,15 +38,16 @@ class ViewArea extends BindingClass {
     mount() {
         this.header.addHeaderToPage();
         this.client = new RedpointClient();
+        this.weatherClient = new WeatherClient();
         this.clientLoaded();
     }
 
     /**
      * When the area is updated in the datastore, update the area metadata on the page.
      */
-    addAreaToPage() {
+    async addAreaToPage() {
         const area = this.dataStore.get('area');
-        document.getElementById("title").innerText = area.areaName;
+        document.getElementById("title").innerText = this.rearrangeString(area.areaName);
         if (area == null) {
             return;
         }
@@ -49,7 +55,7 @@ class ViewArea extends BindingClass {
             document.getElementById("description").innerText = "Description";
             document.getElementById("desc-text").innerText = area.content.description;
         }
-        document.getElementById('area-name').innerText = area.areaName;
+        document.getElementById('area-name').innerText = this.rearrangeString(area.areaName);
         if(area.children.length != 0){
             let areahtml = '<table><tr><th>Areas</th></tr>';
                             for (const child of area.children) {
@@ -78,6 +84,44 @@ class ViewArea extends BindingClass {
                             document.getElementById('climbs').innerHTML = climbhtml;
                 }
         }
+        addWeatherToArea() {
+            if (this.dataStore.get('weather') === undefined) {
+                return;
+            }
+        
+            const weatherData = this.dataStore.get('weather');
+            const area = this.dataStore.get('area');
+            document.getElementById('weather-title').innerText = "Weather For " + this.rearrangeString(area.areaName);
+            const weatherContainer = document.getElementById('weather-container');
+            weatherContainer.innerHTML = '';
+        
+            if (weatherData && weatherData.length > 0) {
+                const weatherList = document.createElement('ul');
+                weatherList.classList.add('weather-list');
+        
+                weatherData.forEach(period => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('weather-item');
+                    listItem.innerHTML = `
+                        <strong>${period.name}:</strong> ${period.shortForecast}, ${period.temperature}&deg;F
+                        `;
+                    weatherList.appendChild(listItem);
+                });
+        
+                weatherContainer.appendChild(weatherList);
+            } else {
+                const noDataMessage = document.createElement('p');
+                noDataMessage.textContent = 'No weather data available.';
+                weatherContainer.appendChild(noDataMessage);
+            }
+        }
+        rearrangeString(inputString) {
+            const words = inputString.split(', ');
+            const rearrangedWords = [words.pop(), ...words];
+            const resultString = rearrangedWords.join(' ');
+            return resultString;
+        }
+        
 }
 
 /**

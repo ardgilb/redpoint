@@ -57,9 +57,9 @@ class SearchAreas extends BindingClass {
      * @param evt The "event" object representing the user-initiated event that triggered this method.
      */
     async search(evt) {
+        document.getElementById('search-btn').innerText = "Loading..."
         // Prevent submitting the from from reloading the page.
         evt.preventDefault();
-
         const searchCriteria = document.getElementById('search-criteria').value;
         const previousSearchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
 
@@ -100,6 +100,7 @@ class SearchAreas extends BindingClass {
             searchCriteriaDisplay.innerHTML = `"${searchCriteria}"`;
             searchResultsDisplay.innerHTML = this.getHTMLForSearchResults(searchResults);
         }
+        document.getElementById('search-btn').innerText = "Search"
     }
 
     /**

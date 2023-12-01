@@ -17,27 +17,30 @@
     <div id="location"></div>
     <h3 id="prot"></h3>
     <div id="protection"></div>
-    <button href="#" class="button" id="log">Log Ascent</button>
+    <p class="hidden error" id="ascent-error-message"> </p>
+    <div id="log-button-container" style="margin-top: 10px;">
+        <button href="#" class="button" id="log" style="width: 100%;">Log Ascent</button>
+    </div>
 </div>
     <div class = "card" id="comments-container">
     <p class="hidden error" id="delete-error-message"> </p>
     </div>
-<div class = "card" id="buttons">
+<div class = "card" id="buttons" style="text-align: right; margin-top: 10px;">
     <p class="hidden error" id="error-message"> </p>
-    <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+    <textarea id="comment" name="comment" rows="4" cols="30" style="width: 100%;"></textarea>    
     <button href="#" class="button" id="comment-button">Create Comment</button>
 </div>
 
 <div id="logAscentModal" class="modal" style="display: none;">
     <div class="modal-content">
-      <span class="close" id="closeModal">&times;</span>
-      <label for="ascentDate">Ascent Date:</label>
-      <input type="date" id="ascentDate">
-      <label for="ascentNotes">Ascent Notes:</label>
-      <textarea id="ascentNotes" rows="4" cols="50"></textarea>
-      <button id="saveAscentBtn">Save Ascent</button>
+        <span class="close" id="closeModal">&times;</span>
+        <label for="ascentDate" style="display: block; font-weight: bold;">Ascent Date:</label>
+        <input type="date" id="ascentDate">
+        <label for="ascentNotes" style="display: block; font-weight: bold;">Ascent Notes:</label>
+        <textarea id="ascentNotes" rows="4" cols="50" style="width: 100%;"></textarea>
+        <button class="button" id="saveAscentBtn">Save Ascent</button>
     </div>
-  </div>
+</div>
 
   <div id="success-message" class="hidden success-message"></div>
 </body>
