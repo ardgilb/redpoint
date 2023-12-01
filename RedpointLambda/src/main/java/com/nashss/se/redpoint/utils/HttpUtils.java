@@ -18,7 +18,7 @@ public class HttpUtils {
     /**
      * The URL of the service to which HTTP requests are made.
      */
-    private static final String serviceUrl = "https://stg-api.openbeta.io";
+    private static final String serviceUrl = "https://api.openbeta.io";
     /**
      * Parses the HTTP response body into a list of areas.
      *

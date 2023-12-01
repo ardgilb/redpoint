@@ -1,3 +1,4 @@
+import Authenticator from '../api/authenticator';
 import RedpointClient from '../api/RedpointClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
@@ -9,7 +10,7 @@ import DataStore from "../util/DataStore";
 class ViewClimb extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addClimbToPage', 'addCommentsToPage', 'addComment', 'deleteComment', ], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addClimbToPage', 'addCommentsToPage', 'addComment', 'deleteComment' ], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addClimbToPage);
         this.dataStore.addChangeListener(this.addCommentsToPage)
@@ -24,8 +25,10 @@ class ViewClimb extends BindingClass {
         const urlParams = new URLSearchParams(window.location.search);
         const uuid = urlParams.get('uuid');
         document.getElementById('climb-name').innerText = "Loading Climb ...";
+        document.getElementById('comments-container').innerHTML = '<h2>Loading Comments...</h2>';
         const climb = await this.client.getClimb(uuid);
         this.dataStore.set('climb', climb);
+        this.addClimbToPage(climb)
         const comments = await this.client.getAllCommentsForClimb(uuid)
         this.dataStore.set('comments', comments)
     }
@@ -48,8 +51,7 @@ class ViewClimb extends BindingClass {
     /**
      * When the climb is updated in the datastore, update the climb metadata on the page.
      */
-    addClimbToPage() {
-        const climb = this.dataStore.get('climb');
+    addClimbToPage(climb) {
         if (climb == null) {
             return;
         }
@@ -86,8 +88,14 @@ class ViewClimb extends BindingClass {
         if (climb == null) {
             return;
         }
+        const currentUser = await this.client.getIdentity();
+        if (currentUser === undefined) {
+            errorMessageDisplay.innerText = 'You must be logged in to create a comment.';
+            errorMessageDisplay.classList.remove('hidden');
+            return;
+        }
 
-        document.getElementById('comment').innerText = 'Creating Comment...';
+        document.getElementById('comment-button').innerText = 'Creating Comment...';
         const text = document.getElementById('comment').value;
         const climbId = climb.uuid;
 
@@ -108,26 +116,40 @@ class ViewClimb extends BindingClass {
      */
     async addCommentsToPage() {
         const commentsContainer = document.getElementById('comments-container');
-
+        const currentUser = await this.client.getIdentity();
         commentsContainer.innerHTML = '<h2>Comments</h2>';
         const comments = this.dataStore.get('comments');
-        const currentUser = await this.client.getIdentity();
+        if(comments == undefined){
+            return;
+        }
         if(comments.length != 0){
         comments.forEach(comment => {
             const commentElement = document.createElement('div');
             const date = new Date(comment.timeStamp);
             const dateString = date.toDateString() 
             commentElement.innerHTML = `<strong>${comment.userId}</strong>: ${comment.text} (${dateString})`;
-            
-            const isAuthor = comment.userId === currentUser.email;
+            let isAuthor = false;
+            if(currentUser != undefined){
+                 isAuthor = comment.userId === currentUser.email;
+            }
+
 
         if (isAuthor) {
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
-            deleteButton.onclick = () => this.deleteComment(comment.commentId);
-
+            deleteButton.style.backgroundColor = 'var(--tertiary-color)'; // Set background color to orange
+            deleteButton.style.color = 'var(--secondary-color)'; // Set text color to light gray
+            deleteButton.style.border = 'none';
+            deleteButton.style.padding = '5px 7px';
+            deleteButton.style.marginLeft = 'auto';
+            deleteButton.onclick = () => {
+                deleteButton.textContent = 'Deleting...';
+                this.deleteComment(comment.commentId);
+            }
+            deleteButton.style.marginLeft = '10px';
             commentElement.appendChild(deleteButton);
         }
+            commentElement.style.marginBottom = '10px';
             commentsContainer.appendChild(commentElement);
             });
         }
@@ -137,9 +159,7 @@ class ViewClimb extends BindingClass {
         commentsContainer.appendChild(commentElement);
         }
     }
-    /**
-     * Method to run when the delete comment button is pressed.
-     */
+
     async deleteComment(commentId) {
             const errorMessageDisplay = document.getElementById('error-message');
             errorMessageDisplay.innerText = '';
@@ -150,25 +170,34 @@ class ViewClimb extends BindingClass {
         this.dataStore.set('comments', comments)
     }
 
-// Add a new method to handle the modal display
-    showLogAscentModal() {
+    async showLogAscentModal() {
+        const errorMessageDisplay = document.getElementById('ascent-error-message');
+        errorMessageDisplay.innerText = '';
+        errorMessageDisplay.classList.add('hidden');
+        const currentUser = await this.client.getIdentity();
+        if (currentUser === undefined) {
+            errorMessageDisplay.innerText = 'You must be logged in to log an ascent.';
+            errorMessageDisplay.classList.remove('hidden');
+            setTimeout(() => {
+                errorMessageDisplay.classList.add('hidden');
+            }, 2000); 
+            return;
+        }
         const modal = document.getElementById('logAscentModal');
         modal.style.display = 'block';
 
-     // Add a click event listener to the window to close the modal if clicked outside of it
         window.onclick = function(event) {
             if (event.target === modal) {
             modal.style.display = 'none';
             }
         }
-
-    // Add a click event listener to the close button to close the modal
         document.getElementById('closeModal').onclick = function() {
             modal.style.display = 'none';
         }
 }
 
 async saveAscent() {
+    document.getElementById('saveAscentBtn').innerHTML = "Saving..."
     const climb = this.dataStore.get('climb');
 
     const ascentDate = document.getElementById('ascentDate').value;
@@ -181,28 +210,24 @@ async saveAscent() {
             errorMessageDisplay.classList.remove('hidden');
         });
 
-        // Display success message
         this.showSuccessMessage("Ascent logged successfully!");
 
-        // Close the modal after saving
         const modal = document.getElementById('logAscentModal');
         modal.style.display = 'none';
     } catch (error) {
-        // Handle other errors if needed
         console.error(error);
     }
+    document.getElementById('saveAscentBtn').innerHTML = "Save Ascent"
+
 }
 
 showSuccessMessage(message) {
-    // Display the success message where you see fit in your UI
     const successMessageElement = document.getElementById('success-message');
     successMessageElement.innerText = message;
     successMessageElement.classList.remove('hidden');
-
-    // Optionally, hide the success message after a certain time
     setTimeout(() => {
         successMessageElement.classList.add('hidden');
-    }, 5000); // Hide after 5 seconds (adjust as needed)
+    }, 2000); 
 }
 
 }
