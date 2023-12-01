@@ -103,8 +103,8 @@ class ViewArea extends BindingClass {
                     const listItem = document.createElement('li');
                     listItem.classList.add('weather-item');
                     listItem.innerHTML = `
-                        <strong>${period.name}:</strong> ${period.shortForecast}, ${period.temperature}°F
-                    `;
+                        <strong>${period.name}:</strong> ${period.shortForecast}, ${period.temperature}&deg;F
+                        `;
                     weatherList.appendChild(listItem);
                 });
         

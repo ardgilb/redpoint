@@ -13,6 +13,7 @@ class Logbook extends BindingClass {
     }
 
     async clientLoaded() {
+        document.getElementById('logbook-header').innerText = "Loading...";
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('userId');
         this.dataStore.set('userId', userId)
@@ -34,13 +35,6 @@ class Logbook extends BindingClass {
      * Load and render the user's logbook entries.
      */
     async loadLogbook() {
-        if(this.dataStore.get('loggedIn')){
-            document.getElementById('logbook-header').innerText = "Your Logbook"
-
-        }
-        else{
-            document.getElementById('logbook-header').innerText = this.dataStore.get('userId') + "'s Logbook"
-        }
         const logbookList = document.getElementById('logbook-list');
         logbookList.innerHTML = ''; 
 
@@ -60,6 +54,13 @@ class Logbook extends BindingClass {
         } catch (error) {
             console.error('Error loading logbook:', error);
         }
+        if(this.dataStore.get('loggedIn')){
+            document.getElementById('logbook-header').innerText = "Your Logbook"
+
+        }
+        else{
+            document.getElementById('logbook-header').innerText = this.dataStore.get('userId') + "'s Logbook"
+        }
     }
 
     /**
@@ -72,6 +73,7 @@ class Logbook extends BindingClass {
         const currentUser = await this.client.getIdentity();
         const date = new Date(entry.date);
         const listItem = document.createElement('li');
+        
         listItem.innerHTML = `
             <strong>Climb Name:</strong> <a href="climb.html?uuid=${climb.uuid}">${climb.name}, ${climb.yds}</a>
             <br>
@@ -79,19 +81,11 @@ class Logbook extends BindingClass {
             <br>
             <strong>Notes:</strong> ${entry.notes}
         `;
-        const isLoggedIn = entry.userId === currentUser.email;
-
         
-        logbookList.appendChild(listItem);
-
-        if(isLoggedIn) {
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.style.backgroundColor = 'var(--tertiary-color)'; // Set background color to orange
-            deleteButton.style.color = 'var(--secondary-color)'; // Set text color to light gray
-            deleteButton.style.border = 'none';
-            deleteButton.style.padding = '5px 7px';
-            deleteButton.style.marginLeft = 'auto';
+        const isLoggedIn = entry.userId === currentUser.email;
+    
+        if (isLoggedIn) {
+            const deleteButton = this.createStyledButton('Delete', 'var(--tertiary-color)');
             deleteButton.onclick = () => {
                 deleteButton.textContent = 'Deleting...';
                 this.deleteEntry(entry.climbId)
@@ -103,14 +97,7 @@ class Logbook extends BindingClass {
                     deleteButton.textContent = 'Delete';
                 });
             }
-
-            const updateButton = document.createElement('button');
-            updateButton.textContent = 'Update';
-            updateButton.style.backgroundColor = 'var(--tertiary-color)'; // Set background color to orange
-            updateButton.style.color = 'var(--secondary-color)'; // Set text color to light gray
-            updateButton.style.border = 'none';
-            updateButton.style.padding = '5px 7px';
-            updateButton.style.marginLeft = 'auto';
+            const updateButton = this.createStyledButton('Update', 'var(--tertiary-color)');
             updateButton.onclick = () => {
                 updateButton.textContent = 'Updating...';
                 this.showUpdateAscentModal(entry)
@@ -120,16 +107,34 @@ class Logbook extends BindingClass {
                 .catch(error => {
                     console.error('Error updating entry:', error);
                     updateButton.textContent = 'Update';
-                });;
-
+                });
             }
+    
             const space = document.createElement('span');
-            space.style.marginRight = '10px'; 
-            logbookList.appendChild(deleteButton);
-            logbookList.appendChild(space);
-            logbookList.appendChild(updateButton);
+            space.style.marginRight = '10px';
+            
+            listItem.appendChild(document.createElement('br')); 
+            listItem.appendChild(deleteButton);
+            listItem.appendChild(space);
+            listItem.appendChild(updateButton);
+
         }
+    
+        logbookList.appendChild(listItem);
     }
+    
+    createStyledButton(text, backgroundColor) {
+        const button = document.createElement('button');
+        button.textContent = text;
+        button.style.backgroundColor = backgroundColor;
+        button.style.color = 'var(--secondary-color)';
+        button.style.border = 'none';
+        button.style.padding = '5px 7px';
+        button.style.marginTop = '5px';
+    
+        return button;
+    }
+    
     async deleteEntry(climbId) {
         await this.client.deleteEntry(climbId);
         await this.loadLogbook();

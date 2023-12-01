@@ -117,11 +117,11 @@ class ViewClimb extends BindingClass {
     async addCommentsToPage() {
         const commentsContainer = document.getElementById('comments-container');
         const currentUser = await this.client.getIdentity();
-        commentsContainer.innerHTML = '<h2>Comments</h2>';
         const comments = this.dataStore.get('comments');
         if(comments == undefined){
             return;
         }
+        commentsContainer.innerHTML = '<h2>Comments</h2>';
         if(comments.length != 0){
         comments.forEach(comment => {
             const commentElement = document.createElement('div');
