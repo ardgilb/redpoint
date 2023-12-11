@@ -2,168 +2,95 @@
 'https://plantuml.com/sequence-diagram
 title Pojo Structure
 class Area {
-- @DynamoDBHashKey areaId : String
-- description : String
-- directions : String
-- weather : String--From NWS API
-- crags : Set<String>
+- areaName : String
+- uuid : String
+- climbs : List<Climb>
+- children : List<Area>
+- content : Content
+- coordinates : Coordinates
 }
-class AreaModel{
-- areaId : String
-- description : String
-- directions : String
-- weather : String--From NWS API
-- crags : List<String>
-+ builder() : Builder
-}
-class Crag {
-- @DynamoDBHashKey areaId : String
-- @DynamoDBRangeKey cragId : String
-- directions : String
-- description : String
-- climbs : Set<String>
-}
-class CragModel {
-- areaId : String
-- cragId : String
-- directions : String
-- description : String
-- climbs : List<String>
-+ builder() : Builder
-}
+
 class Climb {
-- @DynamoDBHashKey cragId : String
-- @DynamoDBRangeKey climbId : String
-- stars : Double
+- name : String
+- uuid : String
+- grade : String
+- content : Content
+- metadata : Metadata
+}
+class Content {
 - location : String
-- description : String
-- rating : Rating
-- style : Style
-- protection : String
-- comments : Set<String>
+- protection: String
+- description: String}
+class Metadata {
+- leftRightIndex : String;
 }
-class ClimbModel {
-- cragId : String
-- climbId : String
-- stars : Double
-- location : String
-- description : String
-- rating : Rating
-- style : Style
-- protection : String
-- comments : List<String>
-}
-enum Rating {
-- 5.7
-- 5.8
-- 5.9
-- 5.10a
-- 5.10b
-- 5.10c
-- 5.10d
-- 5.11a
-- ...
-- 5.13d
-}
-enum Style {
-- SPORT
-- TRAD
-}
-enum Redpoint{
-- FLASH
-- ONSIGHT
-- REDPOINT
-- HUNG_ON_ROPE
-- TOPROPE
-}
-class CompletedClimb extends Climb {
-- attempts : Integer
-- redpoint : Redpoint
-- notes : String
-}
-class User {
-- @DynamoDBHashKey userId : String
-- toDoList : List<Climb>
-- tickList : List<CompletedClimb>
-}
-class UserModel {
-- userId : String
-- toDoList : List<Climb>
-- tickList : List<CompletedClimb>
+class Coordinates {
+- latitude : String
+- longitude : String
 }
 class Comment {
-- @DynamoDBHashKey user : User
-- @DynamoDBRangeKey time : ZonedDateTime
-- climbId : String
+- @DynamoDBHashKey commentId : String
+- timestamp : ZonedDateTime
+- @DynamoDBIndexHashKey climbId : String
 - text : String
-- stars : Double
+- userId : String
 }
 class CommentModel {
-- user : User
-- time : ZonedDateTime
+- commentId : String
+- timestamp : ZonedDateTime
 - climbId : String
 - text : String
-- stars : Double
+- userId : String
 }
-Area --* Crag
-Crag --* Climb
-Climb --* Comment
-Comment --* User
-Climb --* Rating
-Climb --* Style
-CompletedClimb --* Redpoint
+class LogbookEntry {
+- @DynamoDBHashKey userId : String
+- @DynamoDBRangeKey climbId : String
+- date : LocalDate
+- notes : String
+
+}
+class LogbookEntryModel {
+- userId : String
+- climbId : String
+- date : String
+- notes : String
+}
+
+Area --* Climb
+Area --* Content
+Area --* Coordinates
+Climb --* Content
+Climb --* Metadata
+
 
 newpage
 
 title Activity Structure
 
 class AreaDao {
-- mapper : DynamoDbMapper
-- metricsPublisher :
-+ getArea(areaId : String) Area
-+ getAllAreas() List<Area>
-}
-class CragDao {
-- mapper : DynamoDbMapper
-- metricsPublisher :
-+ getCrag(areaId : String, cragId : String) : Crag
-+ getAllCragsForArea(areaId : String) List<Crag>
+- client : HttpClient
++ getArea(uuid : String) Area
++ getAllAreas(query : String) List<Area>
 }
 class ClimbDao {
-- mapper : DynamoDbMapper
-- metricsPublisher :
-+ getClimb(cragId: String, climbId : String) : Climb
-+ getAllClimbsForCrag(cragId : String) : List<Climb>
+- client : HttpClient
+- metricsPublisher : MetricsPublisher
++ getClimb(uuid: String) : Climb
 }
-class UserDao {
+class LogbookEntryDao {
 - mapper : DynamoDbMapper
 - metricsPublisher :
-+ getUser(userId : String) : User
-+ updateTickList()
-+ updateToDoList()
++ getLogbookEntry(userId : String) : User
++ saveLogbookEntry()
++ deleteLogbookEntry()
 }
 class CommentDao {
 - mapper : DynamoDbMapper
 - metricsPublisher :
 + getComment(commentId : String) : Comment
-+ getAllCommentsForCrag(cragId : String) : List<Comment>
++ getAllCommentsForClimb(cragId : String) : List<Comment>
 + saveComment(comment : Comment) : Comment
 + deleteComment(commentId : String) : Comment
-}
-class AreaModelConverter {
-static convertToModel(area : Area) AreaModel
-}
-class CragModelConverter {
-static convertToModel(crag : Crag) CragModel
-}
-class ClimbModelConverter {
-static convertToModel(climb : Climb) ClimbModel
-}
-class CommentModelConverter {
-static convertToModel(comment : Comment) CommentModel
-}
-class UserModelConverter {
-static convertToModel(user : User) UserModel
 }
 class GetAreaActivity {
 - log : Logger
@@ -172,16 +99,6 @@ class GetAreaActivity {
 + GetAllAreasActivity(areaDao : AreaDao, converter : AreaModelConverter)
 + handleRequest(request : GetAreaRequest) GetAreaResponse
 }
-class GetAreaRequest {
-- areaId : String
-- GetAreaRequest(areaId : String)
-+ builder() : Builder
-}
-class GetAreaResponse {
-- areaModel : AreaModel
-- GetAreaResponse(areaModel : AreaModel)
-+ builder() : Builder
-}
 class GetAllAreasActivity{
 - log : Logger
 - areaDao : AreaDao
@@ -189,83 +106,12 @@ class GetAllAreasActivity{
 + GetAllAreasActivity(areaDao : AreaDao, converter : AreaModelConverter)
 + handleRequest() GetAllAreasResponse
 }
-class GetAllAreasResponse{
--areas : List<AreaModel>
-- GetAllAreasResponse(areas: List<AreaModel>)
-+ builder() : Builder
-}
-
-class GetCragActivity{
-- log : Logger
-- cragDao : CragDao
-- converter : CragModelConverter
-+ GetCragActivity(cragDao : CragDao, converter : CragModelConverter)
-+ handleRequest(request : GetCragRequest) GetCragResponse
-}
-class GetCragRequest{
-- areaId : String
-- cragId : String
-- GetCragRequest(areaId : String, cragId : String)
-+ builder() : Builder
-}
-class GetCragResponse{
-- crag : CragModel
-- GetCragResponse(crag: CragModel)
-+ builder() : Builder
-}
-class GetAllCragsForAreaActivity{
-- log : Logger
-- cragDao : CragDao
-- converter : CragModelConverter
-+ GetAllCragsForAreaActivity(cragDao : CragDao, converter: CragModelConverter)
-+ handleRequest(request : GetAllCragsForAreaRequest) GetAllCragsForAreaResponse
-}
-class GetAllCragsForAreaRequest{
-areaId : String
-- GetAllCragsForAreaRequest(areaId : String)
-+ builder() : Builder
-}
-class GetAllCragsForAreaResponse{
-- crags List<CragModel>
-- GetAllCragsForAreaResponse(crags : List<CragModel>)
-+ builder() : Builder
-}
-
-class GetAllClimbsForCragActivity{
-- log : Logger
-- climbDao : ClimbDao
-- converter : ClimbModelConverter
-+ GetAllClimbsForCragActivity(climbDao : ClimbDao, converter : ClimbModelConverter)
-+ handleRequest(request : GetAllClimbsForCragRequest) GetAllClimbsForCragResponse
-}
-class GetAllClimbsForCragRequest{
-- cragId : String
-- GetAllClimbsForCragRequest(cragId: String)
-+ builder() : Builder
-}
-class GetAllClimbsForCragResponse{
-- climbs : List<ClimbModel>
-- GetAllClimbsForCragResponse(climbs : List<ClimbModel>)
-+ builder() : Builder
-}
-
 class GetClimbActivity{
 - log : Logger
 - climbDao : ClimbDao
 - converter : ClimbModelConverter
 + GetClimbActivity(climbDao : ClimbDao, converter : ClimbModelConverter)
 + handleRequest(request : GetClimbRequest) GetClimbResponse
-}
-class GetClimbRequest{
-- cragId : String
-- climbId : String
-- GetClimbRequest(cragId : String, climbId : String)
-+ builder() : Builder
-}
-class GetClimbResponse{
-- climb : ClimbModel
-- GetClimbResponse(climb : ClimbModel)
-+ builder() : Builder
 }
 
 class GetAllCommentsForClimbActivity{
@@ -275,38 +121,8 @@ class GetAllCommentsForClimbActivity{
 + GetAllCommentsForClimbActivity(commentDao : CommentDao, converter : CommentModelConverter)
 + handleRequest(request : GetAllCommentsForClimbRequest) GetAllCommentsForClimbResponse
 }
-class GetAllCommentsForClimbRequest{
-- climbId : String
-- GetAllCommentsForClimbRequest(climbId : String)
-+ builder() : Builder
-}
-class GetAllCommentsForClimbResponse{
-- comments : List<CommentModel>
-- GetAllCommentsForClimbResponse(comments : List<CommentModel>
-+ builder() : Builder
-}
 
-class UpdateTickListActivity{
-- log : Logger
-- userDao : UserDao
-- climbDao : ClimbDao
-- converter : UserModelConverter
-+ UpdateTickListActivity(userDao : UserDao, climbDao : ClimbDao, converter : UserModelConverter)
-+ handleRequest(request : UpdateTickListRequest) UpdateTickListResponse
-}
-class UpdateTickListRequest{
-- userId : String
-- climbId : String
-- UpdateTickListRequest(userId : String, climbId : String)
-+ builder() : Builder
-}
-class UpdateTickListResponse{
-- user : UserModel
-- UpdateTickListResponse(user : UserModel)
-+ builder() : Builder
-}
-
-class UpdateToDoListActivity{
+class UpdateLogbookEntryActivity{
 - log : Logger
 - userDao : UserDao
 - climbDao : ClimbDao
@@ -314,17 +130,7 @@ class UpdateToDoListActivity{
 + UpdateToDoListActivity(userDao : UserDao, climbDao : ClimbDao, converter : UserModelConverter)
 + handleRequest(request : UpdateToDoListRequest) UpdateToDoListResponse
 }
-class UpdateToDoListRequest{
-- userId : String
-- climbId : String
-- UpdateToDoListRequest(userId : String, climbId : String)
-+ builder() : Builder
-}
-class UpdateToDoListResponse{
-- user : UserModel
-- UpdateToDoListResponse(user : UserModel)
-+ builder() : Builder
-}
+
 
 class CreateCommentActivity{
 - commentDao : CommentDao
@@ -333,19 +139,7 @@ class CreateCommentActivity{
 + CreateCommentActivity(commentDao : CommentDao, climbDao : ClimbDao, converter: CommentModelConverter)
 + handleRequest(request : CreateCommentRequest) CreateCommentResponse
 }
-class CreateCommentRequest{
-- userId : String
-- climbId : String
-- text : String
-- stars : double
-- CreateCommentRequest(userId : String, climbId : String, text : String, stars: double)
-+ builder() : Builder
-}
-class CreateCommentResponse{
-- comment : CommentModel
-- CreateCommentResponse(comment : CommentModel)
-+ builder() : Builder
-}
+
 
 class UpdateCommentActivity{
 - commentDao : CommentDao
@@ -354,36 +148,12 @@ class UpdateCommentActivity{
 + UpdateCommentActivity(commentDao : CommentDao, climbDao : ClimbDao, converter: CommentModelConverter)
 + handleRequest(request : UpdateCommentRequest) UpdateCommentResponse
 }
-class UpdateCommentRequest{
-- userId : String
-- climbId : String
-- text : String
-- stars : double
-- UpdateCommentRequest(userId : String, climbId : String, text : String, stars: double)
-+ builder() : Builder
-}
-class UpdateCommentResponse{
-- comment : CommentModel
-- UpdateCommentResponse(comment : CommentModel)
-+ builder() : Builder
-}
-
 class DeleteCommentActivity{
 - log : Logger
 - commentDao : CommentDao
 - climbDao : ClimbDao
 + DeleteCommentActivity(commentDao : CommentDao, climbDao : ClimbDao)
 + handleRequest(request : CreateCommentRequest) CreateCommentResponse
-}
-class DeleteCommentRequest{
-- commentId : String
-- DeleteCommentRequest(commentId : String)
-+ builder() : Builder
-}
-class DeleteCommentResponse{
-- comment : CommentModel
-- DeleteCommentResponse(comment : CommentModel)
-+ builder() : Builder
 }
 
 class GetUserActivity{
@@ -393,101 +163,17 @@ class GetUserActivity{
 +GetUserActivity(userDao: UserDao, converter : UserModelConverter)
 + handleRequest(request : GetUserRequest) GetUserResponse
 }
-class GetUserRequest{
--userId : String
--GetUserRequest(userId : String)
-+ builder() : Builder
-}
-class GetUserResponse{
-- user : UserModel
-- GetUserResponse(user : UserModel)
-+ builder() : Builder
-}
 
-GetAllAreasActivity --* GetAllAreasResponse
-GetAllAreasActivity --* AreaDao
-GetAllAreasActivity --* AreaModelConverter
 
-GetAreaActivity --* GetAreaRequest
-GetAreaActivity --* GetAreaResponse
-GetAreaActivity --* AreaDao
-GetAreaActivity --* AreaModelConverter
-
-GetAllCragsForAreaActivity --* CragDao
-GetAllCragsForAreaActivity --* GetAllCragsForAreaRequest
-GetAllCragsForAreaActivity --* GetAllCragsForAreaResponse
-GetAllCragsForAreaActivity --* CragModelConverter
-
-GetCragActivity --* CragDao
-GetCragActivity --* GetCragRequest
-GetCragActivity --* GetCragResponse
-GetCragActivity --* CragModelConverter
-
-GetAllClimbsForCragActivity --* ClimbDao
-GetAllClimbsForCragActivity --* GetAllClimbsForCragRequest
-GetAllClimbsForCragActivity --* GetAllClimbsForCragResponse
-GetAllClimbsForCragActivity --* ClimbModelConverter
-
-GetClimbActivity --* ClimbDao
-GetClimbActivity --* GetClimbRequest
-GetClimbActivity --* GetClimbResponse
-GetClimbActivity --* ClimbModelConverter
-
-GetAllCommentsForClimbActivity --* CommentDao
-GetAllCommentsForClimbActivity --* GetAllCommentsForClimbRequest
-GetAllCommentsForClimbActivity --* GetAllCommentsForClimbResponse
-GetAllCommentsForClimbActivity --* CommentModelConverter
-
-UpdateTickListActivity --* UserDao
-UpdateTickListActivity --* ClimbDao
-UpdateTickListActivity --* UpdateTickListRequest
-UpdateTickListActivity --* UpdateTickListResponse
-UpdateTickListActivity --* UserModelConverter
-
-UpdateToDoListActivity --* UserDao
-UpdateToDoListActivity --* ClimbDao
-UpdateToDoListActivity --* UpdateToDoListRequest
-UpdateToDoListActivity --* UpdateToDoListResponse
-UpdateToDoListActivity --* UserModelConverter
-
-CreateCommentActivity --* CommentDao
-CreateCommentActivity --* ClimbDao
-CreateCommentActivity --* CreateCommentRequest
-CreateCommentActivity --* CreateCommentResponse
-CreateCommentActivity --* CommentModelConverter
-
-UpdateCommentActivity --* CommentDao
-UpdateCommentActivity --* ClimbDao
-UpdateCommentActivity --* UpdateCommentRequest
-UpdateCommentActivity --* UpdateCommentResponse
-UpdateCommentActivity --* CommentModelConverter
-
-DeleteCommentActivity --* CommentDao
-DeleteCommentActivity --* ClimbDao
-DeleteCommentActivity --* DeleteCommentRequest
-DeleteCommentActivity --* DeleteCommentResponse
-DeleteCommentActivity --* CommentModelConverter
-
-GetUserActivity --* UserDao
-GetUserActivity --* UserModelConverter
-GetUserActivity --* GetUserRequest
-GetUserActivity --* GetUserResponse
 
 newpage
 
 title Exceptions
 exception RuntimeException
-
-exception NotFoundException extends RuntimeException
-
-exception AreaNotFoundException extends NotFoundException{
+exception AreaNotFoundException extends RuntimeException{
 }
-exception CragNotFoundException extends NotFoundException
-exception ClimbNotFoundException extends NotFoundException
-exception CommentNotFoundException extends NotFoundException
-exception UserNotFoundException extends NotFoundException
+exception ClimbNotFoundException extends RuntimeException
+exception CommentNotFoundException extends RuntimeException
+exception LogbookEntryNotFoundException extends RuntimeException
 
-exception InvalidCredentialException extends RuntimeException
-exception NotLoggedInException extends InvalidCredentialException
-exception NotAuthorizedException extends InvalidCredentialException
 @enduml

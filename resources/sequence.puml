@@ -1,60 +1,36 @@
-@startuml
+@startuml sequence.puml
 
 actor "Client" as client
-participant "UpdateToDoListActivity" as utl
-participant "UserDao" as userDao
-participant "ClimbDao" as climbDao
-participant "MetricsPublisher" as metricsPublisher
+participant "UpdateLogbookEntryActivity" as utl
+participant "LogbookEntryDao" as logbookEntryDao
 database "DynamoDB" as dynamoDB
 
-title "UpdateToDoListActivity"
+title "UpdateLogbookEntryActivity"
 
 client -> utl : call handleRequest()
 activate utl
 
-utl -> userDao : getUser(userId)
-activate userDao
+utl -> logbookEntryDao : getLogbookEntry(entry)
+activate logbookEntryDao
 
-userDao -> dynamoDB : lookup by user id
+logbookEntryDao -> dynamoDB : lookup by logbookEntry id
 activate dynamoDB
 
-alt if user does not exist
-dynamoDB --> userDao : return with no item data
-userDao --> metricsPublisher : addCount(userNotFound, 1) (OR SHOULD WE CREATE A NEW USER HERE??)
-userDao --> utl: throw UserNotFoundException
-else continue
-end
-userDao --> metricsPublisher : addCount(userNotFound, 0)
-dynamoDB --> userDao: return user data
+dynamoDB --> logbookEntryDao: return logbookEntry data
 deactivate dynamoDB
-userDao --> utl : return User object
+logbookEntryDao --> utl : return LogbookEntry object
 
-climbDao -> dynamoDB : lookup by climb id
+utl --> utl : update logbook entry with data from request object
+
+utl -> logbookEntryDao : saveLogbookEntry(entry)
+
+logbookEntryDao -> dynamoDB : save the entry
 activate dynamoDB
-
-alt if climb does not exist
-dynamoDB --> climbDao : return with no item data
-climbDao --> metricsPublisher : addCount(climbNotFound, 1)
-climbDao --> utl: throw ClimbNotFoundException
-else continue
-end
-climbDao --> metricsPublisher : addCount(climbNotFound, 0)
-dynamoDB --> climbDao: return user data
+dynamoDB -> logbookEntryDao : return the saved entry
 deactivate dynamoDB
+logbookEntryDao -> utl : return entry object
+deactivate logbookEntryDao
 
-climbDao --> utl : return Climb object
-
-utl --> utl : add climb to user's to-do list
-
-utl -> userDao : saveUser(user)
-
-userDao -> dynamoDB : save the user
-activate dynamoDB
-dynamoDB -> userDao : return the saved user
-deactivate dynamoDB
-userDao -> utl : return User object
-deactivate userDao
-
-utl --> client : return UpdateToDoListResult built w object
+utl --> client : return UpdateLogbookEntryResult built w object
 
 @enduml
