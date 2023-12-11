@@ -133,6 +133,8 @@ class Logbook extends BindingClass {
     
     async deleteEntry(climbId) {
         await this.client.deleteEntry(climbId);
+        this.showSuccessMessage("Ascent deleted successfully!");
+
         await this.loadLogbook();
 }
 showUpdateAscentModal(entry) {
@@ -164,8 +166,17 @@ async updateAscent(entry) {
     const modal = document.getElementById('updateAscentModal');
     modal.style.display = 'none';
     document.getElementById('updateAscentBtn').innerHTML = "Update Ascent";
+    this.showSuccessMessage("Ascent updated successfully!");
 
     this.loadLogbook();
+}
+showSuccessMessage(message) {
+    const successMessageElement = document.getElementById('success-message');
+    successMessageElement.innerText = message;
+    successMessageElement.classList.remove('hidden');
+    setTimeout(() => {
+        successMessageElement.classList.add('hidden');
+    }, 2000); 
 }
 
 }
