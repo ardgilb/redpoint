@@ -99,11 +99,7 @@ class Logbook extends BindingClass {
             }
             const updateButton = this.createStyledButton('Update', 'var(--tertiary-color)');
             updateButton.onclick = () => {
-                updateButton.textContent = 'Updating...';
                 this.showUpdateAscentModal(entry)
-                .then(() => {
-                    updateButton.textContent = 'Update';
-                })
                 .catch(error => {
                     console.error('Error updating entry:', error);
                     updateButton.textContent = 'Update';
@@ -158,7 +154,7 @@ showUpdateAscentModal(entry) {
     document.getElementById('updateAscentBtn').onclick = () => this.updateAscent(entry);
 }
 async updateAscent(entry) {
-    document.getElementById('updateAscentBtn').innerHTML = "Updating..."
+    document.getElementById('updateAscentBtn').innerHTML = "Updating...";
     const ascentDate = document.getElementById('ascentDate').value;
     const ascentNotes = document.getElementById('ascentNotes').value;
     const climbId = entry.climbId;
@@ -167,6 +163,7 @@ async updateAscent(entry) {
 
     const modal = document.getElementById('updateAscentModal');
     modal.style.display = 'none';
+    document.getElementById('updateAscentBtn').innerHTML = "Update Ascent";
 
     this.loadLogbook();
 }

@@ -168,6 +168,7 @@ class ViewClimb extends BindingClass {
         await this.client.deleteComment(commentId);
         const comments = await this.client.getAllCommentsForClimb(this.dataStore.get('climb').uuid)
         this.dataStore.set('comments', comments)
+        this.showSuccessMessage("Comment deleted successfully!");
     }
 
     async showLogAscentModal() {
