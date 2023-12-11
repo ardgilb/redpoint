@@ -99,11 +99,7 @@ class Logbook extends BindingClass {
             }
             const updateButton = this.createStyledButton('Update', 'var(--tertiary-color)');
             updateButton.onclick = () => {
-                updateButton.textContent = 'Updating...';
                 this.showUpdateAscentModal(entry)
-                .then(() => {
-                    updateButton.textContent = 'Update';
-                })
                 .catch(error => {
                     console.error('Error updating entry:', error);
                     updateButton.textContent = 'Update';
