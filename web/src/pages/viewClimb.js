@@ -143,8 +143,7 @@ class ViewClimb extends BindingClass {
             deleteButton.style.padding = '5px 7px';
             deleteButton.style.marginLeft = 'auto';
             deleteButton.onclick = () => {
-                deleteButton.textContent = 'Deleting...';
-                this.deleteComment(comment.commentId);
+                this.showDeleteCommentModal(comment);
             }
             deleteButton.style.marginLeft = '10px';
             commentElement.appendChild(deleteButton);
@@ -170,7 +169,23 @@ class ViewClimb extends BindingClass {
         this.dataStore.set('comments', comments)
         this.showSuccessMessage("Comment deleted successfully!");
     }
-
+    showDeleteCommentModal(comment) {
+        const modal = document.getElementById('deleteModal');
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+    
+        modal.style.display = 'block';
+    
+    
+        yesButton.onclick = async () => {
+            yesButton.innerText = "Deleting...";
+            await this.deleteComment(comment.commentId);
+            modal.style.display = 'none';
+            yesButton.innerText = "Yes";
+        }
+        document.getElementById('noButton').onclick = () => modal.style.display = 'none';
+    
+    }
     async showLogAscentModal() {
         const errorMessageDisplay = document.getElementById('ascent-error-message');
         errorMessageDisplay.innerText = '';

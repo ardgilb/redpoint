@@ -87,11 +87,7 @@ class Logbook extends BindingClass {
         if (isLoggedIn) {
             const deleteButton = this.createStyledButton('Delete', 'var(--tertiary-color)');
             deleteButton.onclick = () => {
-                deleteButton.textContent = 'Deleting...';
-                this.deleteEntry(entry.climbId)
-                .then(() => {
-                    deleteButton.textContent = 'Delete';
-                })
+                this.showDeleteAscentModal(entry)
                 .catch(error => {
                     console.error('Error deleting entry:', error);
                     deleteButton.textContent = 'Delete';
@@ -136,6 +132,23 @@ class Logbook extends BindingClass {
         this.showSuccessMessage("Ascent deleted successfully!");
 
         await this.loadLogbook();
+}
+showDeleteAscentModal(entry) {
+    const modal = document.getElementById('deleteModal');
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+
+    modal.style.display = 'block';
+
+
+    yesButton.onclick = async () => {
+        yesButton.innerText = "Deleting...";
+        await this.deleteEntry(entry.climbId);
+        modal.style.display = 'none';
+        yesButton.innerText = "Yes";
+    }
+    document.getElementById('noButton').onclick = () => modal.style.display = 'none';
+
 }
 showUpdateAscentModal(entry) {
     const modal = document.getElementById('updateAscentModal');
